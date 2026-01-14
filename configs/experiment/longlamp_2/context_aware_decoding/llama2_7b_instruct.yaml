@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - override /model: llama2_7b_instruct
+  - override /data: longlamp_2
+  - override /decoder: context_aware_decoding
+
+# Context-Aware Decoding for LongLaMP-2
+decoder:
+  configs:
+    alpha: 0.5  # Contrastive weight
+    post_softmax: True
+
+model:
+  configs:
+    max_new_tokens: 256

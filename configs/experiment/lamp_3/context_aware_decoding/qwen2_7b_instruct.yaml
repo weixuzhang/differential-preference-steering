@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - override /model: qwen2_7b_instruct
+  - override /data: lamp_3
+  - override /decoder: context_aware_decoding
+
+# Context-Aware Decoding for LaMP-3
+decoder:
+  configs:
+    alpha: 0.5  # Contrastive weight
+    post_softmax: True
+
+model:
+  configs:
+    max_new_tokens: 128

@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - override /model: mistral_7b_instruct
+  - override /data: longlamp_3
+  - override /decoder: contrastive_decoding
+
+# Contrastive Decoding for LongLaMP-3
+decoder:
+  configs:
+    amateur_model_name_or_path: mistralai/Mistral-7B-Instruct-v0.3
+    alpha: 0.5  # Contrastive weight
+    post_softmax: True
+
+model:
+  configs:
+    max_new_tokens: 256

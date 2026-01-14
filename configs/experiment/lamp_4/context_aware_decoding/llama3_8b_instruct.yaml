@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - override /model: llama3_8b_instruct
+  - override /data: lamp_4
+  - override /decoder: context_aware_decoding
+
+# Context-Aware Decoding for LaMP-4
+decoder:
+  configs:
+    alpha: 0.5  # Contrastive weight
+    post_softmax: True
+
+model:
+  configs:
+    max_new_tokens: 64

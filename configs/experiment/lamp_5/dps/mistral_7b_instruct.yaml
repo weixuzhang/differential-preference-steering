@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - override /model: mistral_7b_instruct
+  - override /data: lamp_5
+  - override /decoder: dps
+
+# Override decoder configs for LaMP-5
+decoder:
+  configs:
+    task: LaMP-5
+    num_preference_heads: 40
+
+model:
+  configs:
+    max_new_tokens: 32

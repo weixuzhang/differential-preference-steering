@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - override /model: mistral_7b_instruct
+  - override /data: longlamp_2
+  - override /decoder: dps
+
+# Override decoder configs for LongLaMP-2
+decoder:
+  configs:
+    task: LongLaMP-2
+    num_preference_heads: 40
+
+model:
+  configs:
+    max_new_tokens: 256

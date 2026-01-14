@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - override /model: llama3_8b_instruct
+  - override /data: lamp_7
+  - override /decoder: contrastive_decoding
+
+# Contrastive Decoding for LaMP-7
+decoder:
+  configs:
+    amateur_model_name_or_path: meta-llama/Llama-2-7b-chat-hf
+    alpha: 0.5  # Contrastive weight
+    post_softmax: True
+
+model:
+  configs:
+    max_new_tokens: 64

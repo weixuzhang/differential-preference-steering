@@ -1,0 +1,13 @@
+# @package _global_
+defaults:
+  - override /model: llama2_7b_instruct
+  - override /data: longlamp_3
+  - override /decoder: decore_entropy
+
+decoder:
+  configs:
+    num_retrieval_heads: 50
+
+model:
+  configs:
+    max_new_tokens: 256

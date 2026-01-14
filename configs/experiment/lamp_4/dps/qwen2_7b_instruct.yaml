@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - override /model: qwen2_7b_instruct
+  - override /data: lamp_4
+  - override /decoder: dps
+
+# Override decoder configs for LaMP-4
+decoder:
+  configs:
+    task: LaMP-4
+    num_preference_heads: 40
+
+model:
+  configs:
+    max_new_tokens: 64

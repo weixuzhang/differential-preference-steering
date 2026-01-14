@@ -1,0 +1,21 @@
+# @package _global_
+defaults:
+  - override /model: llama3_8b_instruct
+  - override /data: lamp_3
+  - override /decoder: dps
+
+# DPS Ablation Study: 40 preference heads for LaMP-3
+decoder:
+  configs:
+    task: LaMP-3
+    num_preference_heads: 40
+    post_softmax: True
+
+model:
+  configs:
+    max_new_tokens: 128
+
+# Ablation study identifier
+ablation:
+  study: num_preference_heads
+  value: 40

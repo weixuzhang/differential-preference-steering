@@ -1,0 +1,15 @@
+# @package _global_
+defaults:
+  - override /model: llama2_7b_instruct
+  - override /data: lamp_2
+  - override /decoder: dps
+
+# Override decoder configs for LaMP-2
+decoder:
+  configs:
+    task: LaMP-2
+    num_preference_heads: 40
+
+model:
+  configs:
+    max_new_tokens: 32

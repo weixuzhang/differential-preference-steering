@@ -1,0 +1,16 @@
+# @package _global_
+defaults:
+  - override /model: qwen2_7b_instruct
+  - override /data: lamp_2
+  - override /decoder: contrastive_decoding
+
+# Contrastive Decoding for LaMP-2
+decoder:
+  configs:
+    amateur_model_name_or_path: Qwen/Qwen2-7B-Instruct
+    alpha: 0.5  # Contrastive weight
+    post_softmax: True
+
+model:
+  configs:
+    max_new_tokens: 32
