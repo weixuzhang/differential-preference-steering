@@ -26,7 +26,7 @@ weighted DPS, with an explicit train/dev split.
 | LongLaMP-4 | 1822 | dev=cluster/head detect/evaluate |
 
 Note: LongLaMP uses the HF `test` split when `dev` is missing; the processed data
-is saved under the `dev` directory (see `banditpr/src/lamp/dataset.py`).
+is saved under the `dev` directory (see `src/lamp_benchmark/dataset.py`).
 
 ## Clustering (profile embeddings)
 - Script: `preference_head/cluster_profiles.py`

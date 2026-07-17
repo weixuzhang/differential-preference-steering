@@ -12,7 +12,7 @@ Your DeCoRe implementation now uses **Retrieval-Augmented Generation (RAG)** for
 File: `src/datasets/lamp.py`
 
 **Changes:**
-- ✅ Integrated BanditPR's `create_prompt_generator()` for RAG
+- ✅ Integrated lamp_benchmark's `create_prompt_generator()` for RAG
 - ✅ Supports multiple retrievers: BM25, Contriever, first_k, random
 - ✅ Automatic token budget management
 - ✅ Fallback mechanism if RAG fails
@@ -172,7 +172,7 @@ This integration follows established best practices:
    - Demonstrated with BM25, Contriever, and other methods
    - Standard approach for personalized NLP tasks
 
-2. **BanditPR (Your Codebase)**
+2. **lamp_benchmark (Your Codebase)**
    - Production-ready implementation of LAMP retrieval
    - Includes multiple retrieval strategies
    - Handles token budgets automatically

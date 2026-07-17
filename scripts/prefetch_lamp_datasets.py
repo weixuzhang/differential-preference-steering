@@ -131,11 +131,9 @@ def download_longlamp(task: str, splits: Iterable[str], force: bool) -> None:
 
 
 def _get_lamp_loader():
-    banditpr_root = os.environ.get("BANDITPR_ROOT")
-    if banditpr_root:
-        sys.path.append(str(Path(banditpr_root) / "src"))
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
     try:
-        from lamp import load_lamp_dataset
+        from src.lamp_benchmark import load_lamp_dataset
     except Exception as exc:
         print(f"[warn] Could not import load_lamp_dataset: {exc}")
         return None
@@ -179,10 +177,7 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--dataset_root",
-        default=os.environ.get(
-            "LAMP_DATA_ROOT",
-            str(Path(os.environ.get("BANDITPR_ROOT", ".")) / "dataset"),
-        ),
+        default=os.environ.get("LAMP_DATA_ROOT", "./dataset"),
         help="Root directory to store LaMP JSON files.",
     )
     parser.add_argument("--force", action="store_true", help="Re-download files.")

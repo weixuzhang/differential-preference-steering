@@ -19,10 +19,8 @@ import torch
 from transformers import AutoModel, AutoTokenizer
 
 # Add path for LAMP dataset
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
-from lamp import load_lamp_dataset
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from src.lamp_benchmark import load_lamp_dataset
 
 
 def _is_offline() -> bool:
@@ -187,11 +185,7 @@ def main() -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     print(f"Loading dataset {args.task} ({args.split})...")
-    original_cwd = os.getcwd()
-    if banditpr_root:
-        os.chdir(banditpr_root)
     dataset = load_lamp_dataset(args.task, split=args.split)
-    os.chdir(original_cwd)
 
     if args.k <= 0 or args.k > len(dataset):
         raise ValueError(f"k must be in [1, {len(dataset)}], got {args.k}")

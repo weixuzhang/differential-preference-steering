@@ -178,7 +178,7 @@ tail -50 preference_head_detection_all_*.out
 
 # Common causes:
 # - Out of memory: reduce --num_samples to 200
-# - Dataset not found: check /scratch/weixuz/banditpr/dataset/
+# - Dataset not found: check /scratch/weixuz/lamp_data/
 ```
 
 ### Problem: DPS experiment skips a task

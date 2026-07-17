@@ -17,7 +17,7 @@ This document explains the directory structure and path configuration used in th
 │   ├── outputs/                      # DeCoRe experiment outputs
 │   └── ...
 │
-├── banditpr/
+├── lamp_data/
 │   ├── dataset/                      # LaMP datasets
 │   │   ├── LaMP-1/
 │   │   │   ├── dev_questions.json
@@ -61,14 +61,14 @@ export HF_OFFLINE=true  # Use cached models only
 
 ### 2. **LaMP Dataset**
 
-**Path:** `/scratch/weixuz/banditpr/dataset/LaMP-X/`
+**Path:** `/scratch/weixuz/lamp_data/LaMP-X/`
 
 **Why this path?**
-- BanditPR's `load_lamp_dataset()` uses relative paths from this location
+- lamp_benchmark's `load_lamp_dataset()` uses relative paths from this location
 - Dataset already downloaded and processed here
 - Code temporarily changes directory to load data:
   ```python
-  os.chdir('/scratch/weixuz/banditpr')
+  os.chdir('/scratch/weixuz/dps')
   dataset = load_lamp_dataset('LaMP-1', 'dev')
   ```
 
@@ -131,7 +131,7 @@ config = PreferenceHeadConfig(
 
 ```python
 # Dataset loading (handles path internally)
-os.chdir('/scratch/weixuz/banditpr')
+os.chdir('/scratch/weixuz/dps')
 dataset = load_lamp_dataset(task, split='dev')
 os.chdir(original_cwd)
 
@@ -148,7 +148,7 @@ self.model = AutoModelForCausalLM.from_pretrained(
 
 ### 1. **Resource Sharing**
 - ✅ Model cache shared with DeCoRe (saves ~16GB disk space)
-- ✅ Dataset shared with BanditPR (saves ~2GB)
+- ✅ Dataset shared with lamp_benchmark (saves ~2GB)
 - ✅ No duplication of large files
 
 ### 2. **Consistency**
@@ -184,10 +184,10 @@ du -sh /scratch/weixuz/decore/.cache/huggingface/
 
 ```bash
 # Verify dataset exists
-ls /scratch/weixuz/banditpr/dataset/LaMP-1/
+ls /scratch/weixuz/lamp_data/LaMP-1/
 
 # Check dataset files
-ls -lh /scratch/weixuz/banditpr/dataset/LaMP-1/*.json
+ls -lh /scratch/weixuz/lamp_data/LaMP-1/*.json
 ```
 
 ### Check Output Directory
@@ -262,7 +262,7 @@ FileNotFoundError: ./dataset/LaMP-1/dev_questions.json
 **Solution:**
 ```bash
 # Verify dataset exists
-ls /scratch/weixuz/banditpr/dataset/LaMP-1/
+ls /scratch/weixuz/lamp_data/LaMP-1/
 
 # Code should handle this automatically by changing directory
 # If issue persists, check that path in preference_head_detection.py line ~107
@@ -289,7 +289,7 @@ chmod 755 /scratch/weixuz/preference_head/preference_scores
 | Resource | Path | Type | Size |
 |----------|------|------|------|
 | Model Cache | `/scratch/weixuz/decore/.cache/huggingface/` | Shared | ~16GB |
-| LaMP Dataset | `/scratch/weixuz/banditpr/dataset/` | Shared | ~2GB |
+| LaMP Dataset | `/scratch/weixuz/lamp_data/` | Shared | ~2GB |
 | Detection Scripts | `/scratch/weixuz/preference_head/` | Local | ~100KB |
 | Output Results | `/scratch/weixuz/preference_head/preference_scores/` | Local | ~10MB |
 | Test Results | `/scratch/weixuz/preference_head/test_preference_scores/` | Local | ~1MB |
@@ -315,7 +315,7 @@ DECORE_ENV="/scratch/weixuz/envs/decore"
 HF_CACHE="/scratch/weixuz/decore/.cache/huggingface"
 
 # Data
-BANDITPR_DATA="/scratch/weixuz/banditpr/dataset"
+LAMP_DATA="/scratch/weixuz/lamp_data"
 LAMP_TASK="LaMP-1"
 
 # Project

@@ -180,7 +180,7 @@
           │
           ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  Compute Metrics (BanditPR)                                     │
+│  Compute Metrics (lamp_benchmark)                                     │
 │  • LaMP-1: Citation accuracy                                    │
 │  • LaMP-2: Multi-label F1                                       │
 │  • LaMP-3: MAE                                                   │

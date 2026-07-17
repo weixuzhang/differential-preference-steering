@@ -12,11 +12,10 @@ if 'HF_OFFLINE' not in os.environ:
     os.environ['HF_OFFLINE'] = 'true'
 if 'TRANSFORMERS_OFFLINE' not in os.environ:
     os.environ['TRANSFORMERS_OFFLINE'] = '1'
-os.environ.setdefault("LAMP_DATA_ROOT", "/scratch/weixuz/banditpr/dataset")
+os.environ.setdefault("LAMP_DATA_ROOT", "/scratch/weixuz/lamp_data")
 
 # Setup paths
-sys.path.append('/scratch/weixuz/decore')
-sys.path.append('/scratch/weixuz/banditpr/src')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 def test_imports():
     """Test that all required modules can be imported"""
@@ -25,10 +24,10 @@ def test_imports():
     print("=" * 80)
     
     try:
-        from lamp import load_lamp_dataset, create_prompt_generator
-        print("✓ BanditPR LAMP modules imported successfully")
+        from src.lamp_benchmark import load_lamp_dataset, create_prompt_generator
+        print("✓ lamp_benchmark LAMP modules imported successfully")
     except ImportError as e:
-        print(f"✗ Failed to import BanditPR modules: {e}")
+        print(f"✗ Failed to import lamp_benchmark modules: {e}")
         return False
     
     try:
@@ -63,7 +62,7 @@ def test_dataset_loading():
         # Create config for LAMP-3
         config = DataConfigs(
             name='LAMP_3',
-            data_dir='/scratch/weixuz/banditpr/dataset/LaMP-3',
+            data_dir='/scratch/weixuz/lamp_data/LaMP-3',
             num_samples=1,  # Just 1 sample for testing
             variation=None
         )
@@ -114,7 +113,7 @@ def test_bm25_vs_contriever():
     print("=" * 80)
     
     try:
-        from lamp import load_lamp_dataset, create_prompt_generator
+        from src.lamp_benchmark import load_lamp_dataset, create_prompt_generator
         from transformers import AutoTokenizer
         
         dataset = load_lamp_dataset('LaMP-3', 'dev')

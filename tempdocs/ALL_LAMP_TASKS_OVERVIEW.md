@@ -18,7 +18,7 @@ Currently, **DPS is only implemented for LaMP-1, 2, 3, 4** (4 out of 11 tasks).
 - **Output**: Citation ID `[1]` or `[2]`
 - **Metric**: Accuracy, F1
 - **Status**: ✅ **DPS Implemented & Tested**
-- **Dataset**: `/scratch/weixuz/banditpr/dataset/LaMP-1/`
+- **Dataset**: `/scratch/weixuz/lamp_data/LaMP-1/`
 
 ### ✅ LaMP-2: Movie Tagging  
 - **Type**: Multi-label Classification
@@ -26,7 +26,7 @@ Currently, **DPS is only implemented for LaMP-1, 2, 3, 4** (4 out of 11 tasks).
 - **Output**: Tags (sci-fi, comedy, action, horror, romance, thriller, drama, social commentary, violence, true story)
 - **Metric**: Multi-label F1, Accuracy
 - **Status**: ✅ **DPS Config Ready** (needs preference head detection)
-- **Dataset**: `/scratch/weixuz/banditpr/dataset/LaMP-2/`
+- **Dataset**: `/scratch/weixuz/lamp_data/LaMP-2/`
 
 ### ✅ LaMP-3: Score Prediction
 - **Type**: Regression
@@ -34,7 +34,7 @@ Currently, **DPS is only implemented for LaMP-1, 2, 3, 4** (4 out of 11 tasks).
 - **Output**: Score (1, 2, 3, 4, 5)
 - **Metric**: MAE, RMSE
 - **Status**: ✅ **DPS Config Ready** (needs preference head detection)
-- **Dataset**: `/scratch/weixuz/banditpr/dataset/LaMP-3/`
+- **Dataset**: `/scratch/weixuz/lamp_data/LaMP-3/`
 
 ### ✅ LaMP-4: News Headline Generation
 - **Type**: Text Generation
@@ -42,7 +42,7 @@ Currently, **DPS is only implemented for LaMP-1, 2, 3, 4** (4 out of 11 tasks).
 - **Output**: Headline text (~64 tokens)
 - **Metric**: ROUGE-1, ROUGE-L, METEOR
 - **Status**: ✅ **DPS Config Ready** (needs preference head detection)
-- **Dataset**: `/scratch/weixuz/banditpr/dataset/LaMP-4/`
+- **Dataset**: `/scratch/weixuz/lamp_data/LaMP-4/`
 
 ### ❌ LaMP-5: Scholarly Title Generation
 - **Type**: Text Generation
@@ -50,7 +50,7 @@ Currently, **DPS is only implemented for LaMP-1, 2, 3, 4** (4 out of 11 tasks).
 - **Output**: Title text
 - **Metric**: ROUGE-1, ROUGE-L, METEOR
 - **Status**: ❌ **Not Implemented**
-- **Dataset**: `/scratch/weixuz/banditpr/dataset/LaMP-5/`
+- **Dataset**: `/scratch/weixuz/lamp_data/LaMP-5/`
 
 ### ❌ LaMP-6: Email Subject Generation (Avocado)
 - **Type**: Text Generation
@@ -58,7 +58,7 @@ Currently, **DPS is only implemented for LaMP-1, 2, 3, 4** (4 out of 11 tasks).
 - **Output**: Subject line
 - **Metric**: ROUGE-1, ROUGE-L, METEOR
 - **Status**: ❌ **Not Implemented** (requires Avocado dataset access)
-- **Dataset**: `/scratch/weixuz/banditpr/dataset/LaMP-6/`
+- **Dataset**: `/scratch/weixuz/lamp_data/LaMP-6/`
 - **Note**: Avocado dataset is not publicly accessible (requires LDC license)
 
 ### ❌ LaMP-7: Tweet Paraphrasing
@@ -67,7 +67,7 @@ Currently, **DPS is only implemented for LaMP-1, 2, 3, 4** (4 out of 11 tasks).
 - **Output**: Paraphrased tweet
 - **Metric**: ROUGE-1, ROUGE-L, METEOR
 - **Status**: ❌ **Not Implemented**
-- **Dataset**: `/scratch/weixuz/banditpr/dataset/LaMP-7/`
+- **Dataset**: `/scratch/weixuz/lamp_data/LaMP-7/`
 
 ---
 
@@ -134,12 +134,12 @@ These tasks have datasets available and follow similar patterns:
 
 5. **LaMP-5**: Paper Title Generation
    - Similar to LaMP-4 (generation task)
-   - Dataset available in `/scratch/weixuz/banditpr/dataset/LaMP-5/`
+   - Dataset available in `/scratch/weixuz/lamp_data/LaMP-5/`
    - **Effort**: ~2 hours (create config + detect heads)
 
 6. **LaMP-7**: Tweet Paraphrasing
    - Similar to LaMP-4 (generation task)
-   - Dataset available in `/scratch/weixuz/banditpr/dataset/LaMP-7/`
+   - Dataset available in `/scratch/weixuz/lamp_data/LaMP-7/`
    - **Effort**: ~2 hours (create config + detect heads)
 
 ### 🔒 Requires Special Access (1 task)
@@ -320,7 +320,7 @@ preference_head/
 2. **LaMP-5 and LaMP-7** are easy additions (same infrastructure)
 3. **LaMP-6** is blocked by data access (skip for now)
 4. **LongLaMP** tasks are research extensions (longer contexts)
-5. **BanditPR already supports all tasks** - just need to add configs!
+5. **lamp_benchmark already supports all tasks** - just need to add configs!
 
 ---
 
@@ -328,7 +328,7 @@ preference_head/
 
 ### Check available datasets
 ```bash
-ls /scratch/weixuz/banditpr/dataset/
+ls /scratch/weixuz/lamp_data/
 ```
 
 ### Add new task (template)

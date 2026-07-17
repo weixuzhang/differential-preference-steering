@@ -13,10 +13,8 @@ import numpy as np
 import torch
 from transformers import AutoModel, AutoTokenizer
 
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
-from lamp import load_lamp_dataset
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from src.lamp_benchmark import load_lamp_dataset
 
 from cluster_profiles import _is_offline, build_profile_text, embed_texts
 
@@ -39,11 +37,7 @@ def main() -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     print(f"Loading dataset {args.task} ({args.split})...")
-    original_cwd = os.getcwd()
-    if banditpr_root:
-        os.chdir(banditpr_root)
     dataset = load_lamp_dataset(args.task, split=args.split)
-    os.chdir(original_cwd)
 
     print(f"Loading embedding model {args.embedding_model}...")
     tokenizer = AutoTokenizer.from_pretrained(args.embedding_model, local_files_only=offline)

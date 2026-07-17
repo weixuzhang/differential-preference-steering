@@ -8,21 +8,15 @@ import os
 import sys
 from pathlib import Path
 
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
-from lamp import load_lamp_dataset
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from src.lamp_benchmark import load_lamp_dataset
 
 
 def compute_k(task: str, split: str, target_group: int) -> int:
     if target_group <= 0:
         raise ValueError("target_group must be > 0")
 
-    original_cwd = os.getcwd()
-    if banditpr_root:
-        os.chdir(banditpr_root)
     dataset = load_lamp_dataset(task, split=split)
-    os.chdir(original_cwd)
 
     n = len(dataset)
     k = int(n / target_group + 0.5)

@@ -21,16 +21,15 @@ Optional environment variables:
 ```
 export DPS_ROOT=$(pwd)
 export DECORE_ENV=/path/to/venv            # optional; used by shell scripts
-export BANDITPR_ROOT=/path/to/banditpr     # optional; for dataset loading
-export LAMP_DATA_ROOT=/path/to/dataset     # optional; overrides BANDITPR_ROOT/dataset
+export LAMP_DATA_ROOT=/path/to/dataset     # optional; LaMP/LongLaMP data location
 ```
 
 Most shell scripts source `scripts/env_setup.sh` to set cache and offline flags.
 
 ## Data
-LaMP/LongLaMP datasets are **not included** in this anonymized repo. Point to your local data via:
-- `LAMP_DATA_ROOT` (preferred), or
-- `BANDITPR_ROOT` (expects `dataset/` under that repo).
+LaMP/LongLaMP datasets are **not included** in the repo. Point `LAMP_DATA_ROOT`
+at your local dataset directory (one subdirectory per task, e.g. `LaMP-1/`,
+`LongLaMP-2/`). Loading, prompting, and metric code lives in `src/lamp_benchmark`.
 
 ## Quick run (example)
 ```

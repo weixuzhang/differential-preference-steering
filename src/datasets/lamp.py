@@ -4,12 +4,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-# Add the banditpr path to sys.path to import LAMP modules
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
-
-from lamp import load_lamp_dataset, create_prompt_generator
+from src.lamp_benchmark import load_lamp_dataset, create_prompt_generator
 from src.configs import DataConfigs
 from src.datasets.base_dataset import BaseDataset
 from transformers import AutoTokenizer
@@ -38,7 +33,7 @@ class LAMP(BaseDataset):
     """
     LAMP dataset with RAG-based profile retrieval.
     
-    Uses BanditPR's retrieval system to select the most relevant user profiles
+    Uses lamp_benchmark's retrieval system to select the most relevant user profiles
     instead of using all profiles, following LAMP benchmark's intended approach.
     
     Retrieval options (set via data_configs or kwargs):
@@ -116,7 +111,7 @@ class LAMP(BaseDataset):
         data = []
         
         for idx, item in enumerate(self.dataset):
-            # Extract components from BanditPR dataset
+            # Extract components from lamp_benchmark dataset
             source = item['source']
             profiles = item['profiles']
             query = item.get('query', '')

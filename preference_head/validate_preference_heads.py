@@ -22,10 +22,8 @@ from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # Add paths
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
-from lamp import load_lamp_dataset
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from src.lamp_benchmark import load_lamp_dataset
 
 
 def _is_offline() -> bool:

@@ -13,11 +13,8 @@ from huggingface_hub import snapshot_download
 from transformers import AutoModel, AutoTokenizer
 
 _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_BANDITPR_ROOT = os.environ.get(
-    "BANDITPR_ROOT", os.path.join(_REPO_ROOT, "third_party", "banditpr")
-)
-sys.path.append(os.path.join(_BANDITPR_ROOT, "src"))
-from lamp import load_lamp_dataset
+sys.path.append(_REPO_ROOT)
+from src.lamp_benchmark import load_lamp_dataset
 
 
 def _log_ok(message: str) -> None:
@@ -81,7 +78,9 @@ def main() -> None:
     parser.add_argument("--skip_embedding", action="store_true")
     parser.add_argument(
         "--cache_dir",
-        default=os.environ.get("HF_HOME", "/scratch/weixuz/decore/.cache/huggingface"),
+        default=os.environ.get(
+            "HF_HOME", os.path.join(_REPO_ROOT, ".cache", "huggingface")
+        ),
     )
 
     args = parser.parse_args()

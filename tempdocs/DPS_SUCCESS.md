@@ -410,7 +410,7 @@ If you use DPS in your research:
 ## Acknowledgments
 
 - **DeCoRe**: For the contrastive decoding framework
-- **BanditPR**: For RAG integration and LAMP dataset utilities
+- **lamp_benchmark**: For RAG integration and LAMP dataset utilities
 - **Preference Head Detection**: Based on activation patching methodology
 
 ---

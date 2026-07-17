@@ -55,11 +55,7 @@ def _default_data_dir(task: str) -> str:
     if env_root:
         base = Path(env_root)
     else:
-        banditpr_root = os.environ.get("BANDITPR_ROOT")
-        if banditpr_root:
-            base = Path(banditpr_root) / "dataset"
-        else:
-            base = REPO_ROOT / "data"
+        base = REPO_ROOT / "data"
     if task.startswith("LAMP_"):
         return str(base / f"LaMP-{task.split('_')[1]}")
     if task.startswith("LongLaMP_"):

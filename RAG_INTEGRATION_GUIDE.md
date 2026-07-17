@@ -2,7 +2,7 @@
 
 ## ✅ Integration Complete!
 
-The LAMP dataset loader has been successfully integrated with BanditPR's RAG system, following the LAMP benchmark's intended approach.
+The LAMP dataset loader has been successfully integrated with lamp_benchmark's RAG system, following the LAMP benchmark's intended approach.
 
 ---
 
@@ -132,7 +132,7 @@ from src.configs import DataConfigs
 # Create minimal config
 config = DataConfigs(
     name='LAMP_3',
-    data_dir='/scratch/weixuz/banditpr/dataset/LaMP-3',
+    data_dir='/scratch/weixuz/lamp_data/LaMP-3',
     num_samples=1,  # Just 1 sample for testing
     variation=None
 )
@@ -223,7 +223,7 @@ pip install rank-bm25==0.2.2
 
 **Solution:** Will auto-download on first run. Ensure internet access or:
 ```bash
-cd /scratch/weixuz/banditpr
+cd /scratch/weixuz/dps
 python -c "from transformers import AutoModel; AutoModel.from_pretrained('facebook/contriever')"
 ```
 
@@ -296,7 +296,7 @@ This implementation follows the **LAMP benchmark's intended approach**:
 - Formats as in-context examples
 - Demonstrated with BM25, Contriever, and other retrievers
 
-**BanditPR Paper:** Our retrieval implementation comes from this codebase
+**Retrieval implementation:** vendored internally in `src/lamp_benchmark`
 - Extends LAMP with reinforcement learning
 - Includes multiple retrieval strategies
 - Production-ready code

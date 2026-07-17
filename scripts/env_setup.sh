@@ -13,8 +13,7 @@ else
   echo "[warn] DECORE_ENV not found: ${DECORE_ENV}. Set DECORE_ENV to your venv path." >&2
 fi
 
-# Vendored BanditPR lamp package (code) and LaMP/LongLaMP dataset location
-export BANDITPR_ROOT="${BANDITPR_ROOT:-${DPS_ROOT}/third_party/banditpr}"
+# LaMP/LongLaMP dataset location (loader code lives in src/lamp_benchmark)
 export LAMP_DATA_ROOT="${LAMP_DATA_ROOT:-/scratch/weixuz/lamp_data}"
 
 HF_CACHE="${HF_HOME:-${DPS_ROOT}/.cache/huggingface}"

@@ -4,12 +4,7 @@ import os
 from pathlib import Path
 from typing import Dict, List
 
-# Add the banditpr path to sys.path to import LAMP modules
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
-
-from lamp import create_metric, get_labels
+from src.lamp_benchmark import create_metric, get_labels
 from src.configs import DataConfigs, DecoderConfigs
 from src.datasets.lamp import LAMP
 

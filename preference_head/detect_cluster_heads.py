@@ -15,10 +15,8 @@ import numpy as np
 # Reuse detector without modifying original
 from preference_head_detection import PreferenceHeadConfig, PreferenceHeadDetector
 
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
-from lamp import load_lamp_dataset
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from src.lamp_benchmark import load_lamp_dataset
 
 
 class ClusterPreferenceHeadDetector(PreferenceHeadDetector):

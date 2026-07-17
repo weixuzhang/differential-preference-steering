@@ -10,7 +10,7 @@ FileNotFoundError: [Errno 2] No such file or directory: './dataset/LaMP-1/dev_qu
 ```
 
 **Cause:**
-The `load_lamp_dataset()` function from BanditPR uses relative paths (`./dataset/`) and expects to be run from the `/scratch/weixuz/banditpr/` directory. When running from `/scratch/weixuz/preference_head/`, it can't find the dataset files.
+The `load_lamp_dataset()` function (now in `src/lamp_benchmark`) uses relative paths (`./dataset/`) and expects to be run from the `/scratch/weixuz/dps/` directory. When running from `/scratch/weixuz/preference_head/`, it can't find the dataset files.
 
 **Solution:**
 The code now automatically changes to the correct directory when loading the dataset:
@@ -19,7 +19,7 @@ The code now automatically changes to the correct directory when loading the dat
 # In preference_head_detection.py and validate_preference_heads.py
 original_cwd = os.getcwd()
 try:
-    os.chdir('/scratch/weixuz/banditpr')
+    os.chdir('/scratch/weixuz/dps')
     dataset = load_lamp_dataset(task, split='dev')
 finally:
     os.chdir(original_cwd)
@@ -142,17 +142,17 @@ ModuleNotFoundError: No module named 'lamp'
 ```
 
 **Cause:**
-BanditPR path not in Python path.
+lamp_benchmark path not in Python path.
 
 **Solution:**
 The code already handles this:
 ```python
-sys.path.append('/scratch/weixuz/banditpr/src')
+sys.path.append('/scratch/weixuz/dps')
 ```
 
-If still failing, verify BanditPR is installed:
+If still failing, verify lamp_benchmark is installed:
 ```bash
-ls /scratch/weixuz/banditpr/src/lamp/
+ls /scratch/weixuz/dps/src/lamp_benchmark/
 # Should show: __init__.py, dataset.py, metric.py, etc.
 ```
 
@@ -206,13 +206,13 @@ cd /scratch/weixuz/preference_head
 python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA: {torch.cuda.is_available()}')"
 ```
 
-### Test 2: Verify BanditPR Dataset
+### Test 2: Verify lamp_benchmark Dataset
 ```bash
 python -c "
 import sys
-sys.path.append('/scratch/weixuz/banditpr/src')
+sys.path.append('/scratch/weixuz/dps')
 import os
-os.chdir('/scratch/weixuz/banditpr')
+os.chdir('/scratch/weixuz/dps')
 from lamp import load_lamp_dataset
 dataset = load_lamp_dataset('LaMP-1', 'dev')
 print(f'Dataset loaded: {len(dataset)} samples')

@@ -11,9 +11,6 @@ from typing import Dict, List, Tuple
 
 # Add paths for imports
 sys.path.append(str(Path(__file__).parent))
-banditpr_root = os.environ.get("BANDITPR_ROOT")
-if banditpr_root:
-    sys.path.append(str(Path(banditpr_root) / "src"))
 
 import evaluate
 
@@ -227,7 +224,7 @@ def evaluate_predictions(file_path: str) -> Dict[str, float]:
                 gt = gt[0]
         ground_truth.append(str(gt))
     
-    # Compute metrics using BanditPR's metric function
+    # Compute metrics using lamp_benchmark's metric function
     try:
         lamp_metric = create_metric(task, average=True)
         results = lamp_metric(predicted_answers, ground_truth)
