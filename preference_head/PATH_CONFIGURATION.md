@@ -45,7 +45,7 @@ This document explains the directory structure and path configuration used in th
 
 ### 1. **HuggingFace Cache**
 
-**Path:** `/scratch/weixuz/decore/.cache/huggingface`
+**Path:** `/scratch/weixuz/dps/.cache/huggingface`
 
 **Why this path?**
 - Shared with DeCoRe to avoid duplicating large model files
@@ -54,8 +54,8 @@ This document explains the directory structure and path configuration used in th
 
 **Environment Variables:**
 ```bash
-export TRANSFORMERS_CACHE="/scratch/weixuz/decore/.cache/huggingface"
-export HF_HOME="/scratch/weixuz/decore/.cache/huggingface"
+export TRANSFORMERS_CACHE="/scratch/weixuz/dps/.cache/huggingface"
+export HF_HOME="/scratch/weixuz/dps/.cache/huggingface"
 export HF_OFFLINE=true  # Use cached models only
 ```
 
@@ -106,7 +106,7 @@ python preference_head_detection.py --model_path ...
 
 ```bash
 # Cache (shared with decore)
-hf_cache="/scratch/weixuz/decore/.cache/huggingface"
+hf_cache="/scratch/weixuz/dps/.cache/huggingface"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
 
@@ -174,10 +174,10 @@ self.model = AutoModelForCausalLM.from_pretrained(
 
 ```bash
 # Verify model is cached
-ls /scratch/weixuz/decore/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
+ls /scratch/weixuz/dps/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
 
 # Check cache size
-du -sh /scratch/weixuz/decore/.cache/huggingface/
+du -sh /scratch/weixuz/dps/.cache/huggingface/
 ```
 
 ### Check LaMP Dataset
@@ -219,8 +219,8 @@ All paths and environment variables are automatically configured.
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Set cache
-export TRANSFORMERS_CACHE="/scratch/weixuz/decore/.cache/huggingface"
-export HF_HOME="/scratch/weixuz/decore/.cache/huggingface"
+export TRANSFORMERS_CACHE="/scratch/weixuz/dps/.cache/huggingface"
+export HF_HOME="/scratch/weixuz/dps/.cache/huggingface"
 export HF_OFFLINE=true
 
 # Run detection
@@ -245,11 +245,11 @@ OSError: Can't load model 'meta-llama/Meta-Llama-3-8B-Instruct'
 **Solution:**
 ```bash
 # Check if model is cached
-ls /scratch/weixuz/decore/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
+ls /scratch/weixuz/dps/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
 
 # If not, ensure cache path is correct
 echo $TRANSFORMERS_CACHE
-# Should output: /scratch/weixuz/decore/.cache/huggingface
+# Should output: /scratch/weixuz/dps/.cache/huggingface
 ```
 
 ### Issue: Dataset Not Found
@@ -288,7 +288,7 @@ chmod 755 /scratch/weixuz/preference_head/preference_scores
 
 | Resource | Path | Type | Size |
 |----------|------|------|------|
-| Model Cache | `/scratch/weixuz/decore/.cache/huggingface/` | Shared | ~16GB |
+| Model Cache | `/scratch/weixuz/dps/.cache/huggingface/` | Shared | ~16GB |
 | LaMP Dataset | `/scratch/weixuz/lamp_data/` | Shared | ~2GB |
 | Detection Scripts | `/scratch/weixuz/preference_head/` | Local | ~100KB |
 | Output Results | `/scratch/weixuz/preference_head/preference_scores/` | Local | ~10MB |
@@ -312,7 +312,7 @@ chmod 755 /scratch/weixuz/preference_head/preference_scores
 ```bash
 # Environment
 DECORE_ENV="/scratch/weixuz/envs/decore"
-HF_CACHE="/scratch/weixuz/decore/.cache/huggingface"
+HF_CACHE="/scratch/weixuz/dps/.cache/huggingface"
 
 # Data
 LAMP_DATA="/scratch/weixuz/lamp_data"

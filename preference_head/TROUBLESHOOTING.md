@@ -51,13 +51,13 @@ export HF_TOKEN="your_token_here"
 Option 2: Use already cached model:
 ```bash
 # Make sure model is in cache
-ls /scratch/weixuz/decore/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct
+ls /scratch/weixuz/dps/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct
 ```
 
 Option 3: Point to local model:
 ```bash
 python preference_head_detection.py \
-  --model_path /scratch/weixuz/decore/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/...
+  --model_path /scratch/weixuz/dps/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/...
 ```
 
 ---

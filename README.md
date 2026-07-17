@@ -3,11 +3,21 @@
 This repository contains code and scripts for **Differential Preference Steering (DPS)**, a personalization method that detects preference-sensitive attention heads and steers decoding by scaling those heads in a depersonalized pass. The project extends DeCoRe-style contrastive decoding with **preference head detection**, **cluster routing**, and **weighted head scaling**.
 
 ## What’s inside
-- `src/` — core models, datasets, metrics, and decoding logic (DPS, CAD, DeCoRe, DoLa).
-- `preference_head/` — profile embedding, clustering, head detection, and diagnostics.
-- `configs/` — Hydra configs for experiments and decoders.
-- `scripts/` — utilities for DPS runs, dataset prefetch, and efficiency plots.
-- `human_eval/` — LLM evaluation scripts (no raw prompts or summaries included).
+- `src/` — core models, datasets, metrics, and decoding logic (DPS, CAD, DeCoRe, DoLa);
+  `src/lamp_benchmark/` holds the LaMP/LongLaMP loading, prompting, and metric utilities.
+- `preference_head/` — profile embedding, clustering, head detection, diagnostics, and
+  detection results (`preference_scores*/`, `cluster_heads/`, `cluster_runs/`).
+- `configs/` — Hydra configs for experiments, models, and decoders.
+- `scripts/` — entry points and utilities (`main.py`, weighted DPS, prefetch, plotting).
+- `experiments/` — experiment launchers: main-table runs, `baseline_scripts/`,
+  `e2e_scripts/`, `hparam_scripts/`, quick smoke tests.
+- `slurm/` — Slurm pipeline for the Phi-4 experiment suite.
+- `human_eval/` — LLM-judge evaluation scripts, annotations, and win rates.
+- `results/`, `plots/` — aggregated evaluation tables and generated figures.
+- `docs/` — methodology, workflow, integration and analysis write-ups
+  (`docs/tempdocs/` holds historical dev notes).
+- `data/`, `notebooks/`, `retrieval_heads/`, `tests/` — eval data, analysis
+  notebooks, retrieval-head JSONs, integration tests.
 
 ## Setup
 Create a Python environment and install dependencies:

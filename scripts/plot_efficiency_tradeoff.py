@@ -98,7 +98,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--out",
-        default="/scratch/weixuz/decore/plots/efficiency/efficiency_tradeoff.png",
+        default="/scratch/weixuz/dps/plots/efficiency/efficiency_tradeoff.png",
     )
     args = parser.parse_args()
 

@@ -3,10 +3,10 @@
 Run LLM evaluation (GPT-5.2) for DPS vs CAD human-eval JSONL files.
 
 Example:
-  python decore/human_eval/run_llm_eval_gpt5_2.py \
-    --inputs decore/human_eval/LaMP-4_dps_vs_cad.jsonl decore/human_eval/LaMP-7_dps_vs_cad.jsonl \
-    --output decore/human_eval/llm_eval_gpt5_2.jsonl \
-    --summary decore/human_eval/llm_eval_gpt5_2_summary.json \
+  python human_eval/run_llm_eval_gpt5_2.py \
+    --inputs human_eval/LaMP-4_dps_vs_cad.jsonl human_eval/LaMP-7_dps_vs_cad.jsonl \
+    --output human_eval/llm_eval_gpt5_2.jsonl \
+    --summary human_eval/llm_eval_gpt5_2_summary.json \
     --model gpt-5.2 \
     --resume
 """
