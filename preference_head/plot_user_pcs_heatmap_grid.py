@@ -71,16 +71,29 @@ def plot_grid(
     output_file: Path,
     cmap: str,
     cols: int,
+    title_fontsize: int = 16,
+    axis_label_fontsize: int = 12,
+    suptitle_fontsize: int = 20,
+    cbar_label_fontsize: int = 12,
 ) -> None:
     n = len(matrices)
     cols = max(1, min(cols, n))
     rows = math.ceil(n / cols)
-    fig, axes = plt.subplots(rows, cols, figsize=(5 * cols, 4 * rows))
+    fig, axes = plt.subplots(
+        rows,
+        cols,
+        figsize=(5.6 * cols + 1.2, 4.8 * rows),
+        squeeze=False,
+    )
 
-    if n == 1:
-        axes = np.array([[axes]])
-    elif rows == 1:
-        axes = np.array([axes])
+    fig.subplots_adjust(
+        left=0.06,
+        right=0.90,
+        bottom=0.08,
+        top=0.88,
+        wspace=0.18,
+        hspace=0.28,
+    )
 
     all_vals = np.concatenate([m[~np.isnan(m)].ravel() for m in matrices])
     vmin = float(np.min(all_vals)) if all_vals.size else 0.0
@@ -95,9 +108,9 @@ def plot_grid(
         ax = axes[r, c]
         masked = np.ma.masked_invalid(mat)
         im = ax.imshow(masked, cmap=cmap_obj, vmin=vmin, vmax=vmax, aspect="auto")
-        ax.set_title(label, fontsize=11, fontweight="bold")
-        ax.set_xlabel("Head Index")
-        ax.set_ylabel("Layer Index")
+        ax.set_title(label, fontsize=title_fontsize, fontweight="bold", pad=8)
+        ax.set_xlabel("Head Index", fontsize=axis_label_fontsize)
+        ax.set_ylabel("Layer Index", fontsize=axis_label_fontsize)
         ax.set_xticks([])
         ax.set_yticks([])
 
@@ -106,15 +119,14 @@ def plot_grid(
         c = idx % cols
         axes[r, c].axis("off")
 
-    fig.colorbar(
+    cax = fig.add_axes([0.92, 0.16, 0.018, 0.64])
+    cbar = fig.colorbar(
         im,
-        ax=axes.ravel().tolist(),
-        fraction=0.02,
-        pad=0.02,
-        label="PCS",
+        cax=cax,
     )
-    fig.suptitle("PCS Heatmaps (Per-User)", fontsize=13, fontweight="bold")
-    fig.tight_layout()
+    cbar.set_label("PCS", fontsize=cbar_label_fontsize)
+    cbar.ax.tick_params(labelsize=max(cbar_label_fontsize - 1, 10))
+    fig.suptitle("PCS Heatmaps (Per-User)", fontsize=suptitle_fontsize, fontweight="bold", y=0.965)
     fig.savefig(output_file, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
@@ -156,6 +168,20 @@ def main() -> None:
         default=5,
         help="Number of columns in the grid.",
     )
+    parser.add_argument(
+        "--indices",
+        default=None,
+        help="Comma-separated explicit user indices to plot.",
+    )
+    parser.add_argument(
+        "--indices_file",
+        default=None,
+        help="Path to a text file containing comma-separated user indices.",
+    )
+    parser.add_argument("--title_fontsize", type=int, default=16)
+    parser.add_argument("--axis_label_fontsize", type=int, default=12)
+    parser.add_argument("--suptitle_fontsize", type=int, default=20)
+    parser.add_argument("--cbar_label_fontsize", type=int, default=12)
     args = parser.parse_args()
 
     pcs_file = Path(args.pcs_file)
@@ -170,12 +196,23 @@ def main() -> None:
     if num_heads_total != num_layers * num_heads:
         raise ValueError("PCS file does not match expected layer/head grid.")
 
-    indices = select_user_indices(
-        num_users_total,
-        args.num_users,
-        args.sample_method,
-        args.seed,
-    )
+    if args.indices_file:
+        raw = Path(args.indices_file).read_text().strip()
+        indices = np.array([int(x) for x in raw.split(",") if x.strip()], dtype=int)
+    elif args.indices:
+        indices = np.array([int(x) for x in args.indices.split(",") if x.strip()], dtype=int)
+    else:
+        indices = select_user_indices(
+            num_users_total,
+            args.num_users,
+            args.sample_method,
+            args.seed,
+        )
+
+    if np.any(indices < 0) or np.any(indices >= num_users_total):
+        raise ValueError(
+            f"User indices out of range for PCS matrix with {num_users_total} users: {indices.tolist()}"
+        )
     labels = [f"{args.label_prefix}_{i:02d}" for i in indices]
 
     matrices = []
@@ -189,6 +226,10 @@ def main() -> None:
         output_dir / "pcs_heatmap_grid.png",
         cmap=args.cmap,
         cols=args.cols,
+        title_fontsize=args.title_fontsize,
+        axis_label_fontsize=args.axis_label_fontsize,
+        suptitle_fontsize=args.suptitle_fontsize,
+        cbar_label_fontsize=args.cbar_label_fontsize,
     )
 
     with (output_dir / "user_indices.txt").open("w") as f:

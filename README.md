@@ -44,6 +44,25 @@ bash preference_head/run_detect_cluster_heads.sh
 bash run_weighted_dps.sh
 ```
 
+## Slurm pipeline for Phi-4-mini
+For a smaller-model replacement of the Mistral runs, the repo now includes a Phi-4-mini path:
+```
+# Prefetch once on the login node
+bash scripts/upgrade_phi4_stack.sh   # only needed if your HF stack is older
+bash scripts/prefetch_models_and_metrics.sh microsoft/Phi-4-mini-instruct sentence-transformers/all-MiniLM-L6-v2
+
+# Submit the LaMP-1/2/3/4/5/7 pipeline
+bash slurm/submit_phi4_full_experiment.sh
+```
+
+This schedules:
+- profile clustering,
+- per-cluster preference-head detection,
+- weighted DPS decoding with soft routing,
+- baseline and context-aware decoding baselines.
+
+Retrieval-head DeCoRe baselines and DoLa are not part of the Phi-4-mini Slurm path in this release copy.
+
 ## Human evaluation
 LLM evaluation scripts live in `human_eval/`. Raw annotation files and prompt JSONL files are excluded from this anonymized repo.
 

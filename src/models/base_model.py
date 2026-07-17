@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Optional, Union
+import functools
 import os
 
 import torch
@@ -33,6 +34,25 @@ def _raise_offline_model_error(model_path: str, exc: Exception) -> None:
         "Set HF_OFFLINE=false (or HF_HUB_OFFLINE=0) to download, "
         "or pre-download into the cache."
     ) from exc
+
+
+def _patch_generic_forward(model):
+    """
+    Patch generic HF/remote-code models so they safely ignore kwargs that are only
+    used by the custom LLaMA/Mistral/Qwen2 model forks in this repo.
+    """
+    original_forward = model.forward
+
+    @functools.wraps(original_forward)
+    def wrapped_forward(*args, **kwargs):
+        kwargs.pop("attn_mode", None)
+        kwargs.pop("block_list", None)
+        kwargs.pop("early_exit_layers", None)
+        return original_forward(*args, **kwargs)
+
+    model.forward = wrapped_forward
+    model._dps_forward_patched = True
+    return model
 
 
 class BaseModel(ABC):
@@ -82,6 +102,26 @@ class BaseModel(ABC):
                     local_files_only=offline,
                 ).eval()
                 self.attn_mode = "flash"
+            else:
+                last_exc = None
+                for attn_impl in ("flash_attention_2", "eager"):
+                    try:
+                        self.model = AutoModelForCausalLM.from_pretrained(
+                            model_path,
+                            attn_implementation=attn_impl,
+                            torch_dtype="auto",
+                            device_map="auto",
+                            trust_remote_code=True,
+                            local_files_only=offline,
+                        ).eval()
+                        self.model = _patch_generic_forward(self.model)
+                        self.attn_mode = None
+                        break
+                    except Exception as exc:  # pragma: no cover - fallback path
+                        last_exc = exc
+                        self.model = None
+                if self.model is None:
+                    raise last_exc
         except OSError as exc:
             if offline:
                 _raise_offline_model_error(model_path, exc)
@@ -90,6 +130,8 @@ class BaseModel(ABC):
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(
                 model_path,
+                trust_remote_code=True,
+                use_fast=False,
                 local_files_only=offline,
             )
         except OSError as exc:
@@ -445,11 +487,12 @@ class BaseModel(ABC):
                     input_ids=last_input_token,
                     past_key_values=past_kv,
                     use_cache=True,
-                    output_attentions=True,
+                    output_attentions=return_attentions,
                     attn_mode=self.attn_mode,
                     block_list=block_list,
                 )
-                attentions += [outputs.attentions]
+                if return_attentions:
+                    attentions += [outputs.attentions]
                 entropies += [self._calculate_entropy(outputs.logits[0, -1]).item()]
                 past_kv = outputs.past_key_values
                 last_input_token = outputs.logits[0, -1].argmax()

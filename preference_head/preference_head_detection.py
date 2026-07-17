@@ -97,13 +97,17 @@ class PreferenceHeadDetector:
         
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(
-                config.model_path, local_files_only=self.offline
+                config.model_path,
+                trust_remote_code=True,
+                use_fast=False,
+                local_files_only=self.offline,
             )
             self.model = AutoModelForCausalLM.from_pretrained(
                 config.model_path,
                 torch_dtype=self.dtype,
                 device_map="auto",
                 attn_implementation="eager",  # Need eager for attention manipulation
+                trust_remote_code=True,
                 local_files_only=self.offline,
             )
         except OSError as exc:

@@ -89,14 +89,43 @@ class WeightedDPSModel(BaseModel):
         self._head_scale_hooks = []
         self._install_head_scale_hooks()
 
+    def _get_decoder_layers(self):
+        decoder = getattr(self.model, "model", None)
+        if decoder is not None and hasattr(decoder, "layers"):
+            return decoder.layers
+
+        if hasattr(self.model, "get_decoder"):
+            decoder = self.model.get_decoder()
+            if hasattr(decoder, "layers"):
+                return decoder.layers
+
+        raise AttributeError("Could not resolve decoder layers for weighted DPS model.")
+
     def _install_head_scale_hooks(self) -> None:
-        for layer_idx, layer in enumerate(self.model.model.layers):
-            hook = layer.self_attn.q_proj.register_forward_hook(
-                lambda module, inputs, output, idx=layer_idx: self._scale_q_proj(output, idx)
+        for layer_idx, layer in enumerate(self._get_decoder_layers()):
+            attn = layer.self_attn
+            if hasattr(attn, "q_proj"):
+                proj = attn.q_proj
+                proj_kind = "q_proj"
+            elif hasattr(attn, "qkv_proj"):
+                proj = attn.qkv_proj
+                proj_kind = "qkv_proj"
+            else:
+                raise AttributeError(
+                    f"Layer {layer_idx} has no supported query projection module."
+                )
+
+            hook = proj.register_forward_hook(
+                lambda module, inputs, output, idx=layer_idx, kind=proj_kind: self._scale_q_proj(output, idx, kind)
             )
             self._head_scale_hooks.append(hook)
 
-    def _scale_q_proj(self, output: torch.Tensor, layer_idx: int) -> torch.Tensor:
+    def _scale_q_proj(
+        self,
+        output: torch.Tensor,
+        layer_idx: int,
+        proj_kind: str,
+    ) -> torch.Tensor:
         if not self._apply_head_scale or self._head_scale is None:
             return output
         scale = self._head_scale[layer_idx]
@@ -116,9 +145,22 @@ class WeightedDPSModel(BaseModel):
         else:
             scale = scale.to(device=output.device, dtype=output.dtype)
 
-        out = output.view(bsz, seq_len, num_heads, head_dim)
-        out = out * scale.view(1, 1, num_heads, 1)
-        return out.view(bsz, seq_len, hidden)
+        if proj_kind == "q_proj":
+            out = output.view(bsz, seq_len, num_heads, head_dim)
+            out = out * scale.view(1, 1, num_heads, 1)
+            return out.view(bsz, seq_len, hidden)
+
+        if proj_kind == "qkv_proj":
+            query_size = num_heads * head_dim
+            if hidden < query_size:
+                return output
+            query = output[..., :query_size].view(bsz, seq_len, num_heads, head_dim)
+            query = query * scale.view(1, 1, num_heads, 1)
+            query = query.view(bsz, seq_len, query_size)
+            rest = output[..., query_size:]
+            return torch.cat([query, rest], dim=-1)
+
+        return output
 
     def _calculate_entropy(self, logits: torch.Tensor) -> torch.Tensor:
         probs = torch.softmax(logits, dim=-1)

@@ -69,13 +69,17 @@ class PreferenceHeadValidator:
         print(f"Loading model from {model_path}...")
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(
-                model_path, local_files_only=self.offline
+                model_path,
+                trust_remote_code=True,
+                use_fast=False,
+                local_files_only=self.offline,
             )
             self.model = AutoModelForCausalLM.from_pretrained(
                 model_path,
                 torch_dtype=torch.bfloat16,
                 device_map="auto",
                 attn_implementation="eager",
+                trust_remote_code=True,
                 local_files_only=self.offline,
             )
         except OSError as exc:

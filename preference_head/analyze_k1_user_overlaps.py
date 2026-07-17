@@ -87,7 +87,12 @@ def plot_heatmap(
     vmax: float | None,
     mask_diagonal: bool,
 ) -> None:
-    fig, ax = plt.subplots(figsize=(10, 8))
+    num_users = len(labels)
+    tick_step = max(1, num_users // 25)
+    fig_width = max(12, 0.28 * num_users + 4.5)
+    fig_height = max(10, 0.28 * num_users + 3.0)
+
+    fig, ax = plt.subplots(figsize=(fig_width, fig_height))
     plot_matrix = matrix.copy()
     if mask_diagonal:
         np.fill_diagonal(plot_matrix, np.nan)
@@ -99,14 +104,19 @@ def plot_heatmap(
     masked = np.ma.masked_invalid(plot_matrix)
     im = ax.imshow(masked, cmap=cmap_obj, vmin=0.0, vmax=vmax, aspect="auto")
 
-    ax.set_xticks(range(len(labels)))
-    ax.set_yticks(range(len(labels)))
-    ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=6)
-    ax.set_yticklabels(labels, fontsize=6)
+    tick_positions = np.arange(0, num_users, tick_step)
+    ax.set_xticks(tick_positions)
+    ax.set_yticks(tick_positions)
+    ax.set_xticklabels([labels[i] for i in tick_positions], rotation=45, ha="right", fontsize=9)
+    ax.set_yticklabels([labels[i] for i in tick_positions], fontsize=9)
 
-    fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="Jaccard")
-    ax.set_title("Per-User Head-Set Jaccard Overlap", fontsize=12, fontweight="bold")
-    fig.tight_layout()
+    fig.subplots_adjust(left=0.10, right=0.88, bottom=0.14, top=0.90)
+    cax = fig.add_axes([0.90, 0.16, 0.02, 0.64])
+    cbar = fig.colorbar(im, cax=cax)
+    cbar.set_label("Jaccard", fontsize=12)
+    cbar.ax.tick_params(labelsize=10)
+
+    ax.set_title("Pairwise Jaccard Overlap of Top-K Preference Head Sets Across Users", fontsize=16, fontweight="bold", pad=12)
     fig.savefig(output_file, dpi=300, bbox_inches="tight")
     plt.close(fig)
 

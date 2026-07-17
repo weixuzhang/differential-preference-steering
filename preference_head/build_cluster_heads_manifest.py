@@ -29,6 +29,11 @@ def main() -> None:
     parser.add_argument("--split", default="dev")
     parser.add_argument("--chunk_size", type=int, default=10)
     parser.add_argument(
+        "--tasks",
+        default=",".join(DEFAULT_TASKS),
+        help="Comma-separated task list",
+    )
+    parser.add_argument(
         "--output",
         default="preference_head/cluster_head_manifest.tsv",
         help="Output manifest path",
@@ -42,7 +47,8 @@ def main() -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     lines = []
-    for task in DEFAULT_TASKS:
+    tasks = [task.strip() for task in args.tasks.split(",") if task.strip()]
+    for task in tasks:
         k = compute_k(task, args.split, args.target_group)
         chunks = (k + args.chunk_size - 1) // args.chunk_size
         for chunk_idx in range(chunks):

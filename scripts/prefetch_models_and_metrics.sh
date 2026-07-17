@@ -7,7 +7,7 @@ set -euo pipefail
 
 # Prefetch models + eval metrics into the shared HF cache so sbatch jobs can run offline.
 
-CACHE_ROOT="${HF_HOME:-${DPS_ROOT}/decore/.cache/huggingface}"
+CACHE_ROOT="${HF_HOME:-${DPS_ROOT}/.cache/huggingface}"
 export HF_HOME="$CACHE_ROOT"
 export TRANSFORMERS_CACHE="$CACHE_ROOT"
 export HF_HUB_CACHE="$CACHE_ROOT/hub"
@@ -27,6 +27,7 @@ MODELS=(
   "Qwen/Qwen2-7B-Instruct"
   "mistralai/Mistral-7B-Instruct-v0.3"
   "mistralai/Mistral-7B-v0.3"
+  "microsoft/Phi-4-mini-instruct"
   "sentence-transformers/all-MiniLM-L6-v2"
 )
 
