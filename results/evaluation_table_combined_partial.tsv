@@ -1,0 +1,18 @@
+task	model	method	metrics	samples
+LaMP-1	Qwen2-7b-Instruct	Baseline	acc=1.0000, f1=1.0000	2
+LaMP-1	Qwen2-7b-Instruct	ContextAwareDecoding	acc=1.0000, f1=1.0000	2
+LaMP-1	Qwen2-7b-Instruct	DeCoReVanilla	acc=1.0000, f1=1.0000	2
+LaMP-2	Qwen2-7b-Instruct	Baseline	acc=0.0000, f1=0.0000	2
+LaMP-2	Qwen2-7b-Instruct	ContextAwareDecoding	acc=0.0000, f1=0.0000	2
+LaMP-3	Qwen2-7b-Instruct	Baseline	mae=0.0000, rmse=0.0000	2
+LaMP-3	Qwen2-7b-Instruct	ContextAwareDecoding	mae=0.0000, rmse=0.0000	2
+LaMP-3	Qwen2-7b-Instruct	DeCoReVanilla	mae=0.0000, rmse=0.0000	2
+LaMP-4	Qwen2-7b-Instruct	Baseline	r1=0.0000, rL=0.0000, meteor=0.0000	2
+LaMP-4	Qwen2-7b-Instruct	ContextAwareDecoding	r1=0.0000, rL=0.0000, meteor=0.0000	2
+LaMP-4	Qwen2-7b-Instruct	DeCoReVanilla	r1=0.3333, rL=0.3333, meteor=0.2203	2
+LaMP-5	LLaMA3-8b-Instruct	DeCoReVanilla	r1=0.1000, rL=0.1000, meteor=0.0809	2
+LaMP-5	Qwen2-7b-Instruct	Baseline	r1=0.1389, rL=0.1389, meteor=0.0429	2
+LaMP-5	Qwen2-7b-Instruct	ContextAwareDecoding	r1=0.1389, rL=0.1389, meteor=0.0429	2
+LaMP-5	Qwen2-7b-Instruct	DeCoReVanilla	r1=0.1389, rL=0.1389, meteor=0.0429	2
+LaMP-7	LLaMA3-8b-Instruct	DeCoReVanilla	r1=0.0714, rL=0.0714, meteor=0.0266	2
+LaMP-7	Qwen2-7b-Instruct	Baseline	r1=0.1538, rL=0.1538, meteor=0.0538	2

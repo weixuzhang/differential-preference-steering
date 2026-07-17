@@ -1,0 +1,31 @@
+{
+  "rows": 50,
+  "primary": {
+    "DPS": {
+      "count": 14,
+      "rate": 0.28
+    },
+    "TIE": {
+      "count": 15,
+      "rate": 0.3
+    },
+    "CAD": {
+      "count": 21,
+      "rate": 0.42
+    }
+  },
+  "alignment": {
+    "DPS": {
+      "count": 14,
+      "rate": 0.28
+    },
+    "TIE": {
+      "count": 17,
+      "rate": 0.34
+    },
+    "CAD": {
+      "count": 19,
+      "rate": 0.38
+    }
+  }
+}

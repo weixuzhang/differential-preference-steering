@@ -18,7 +18,6 @@ Each JSONL record contains:
 - `cad_prediction`: CAD output
 - `profile`: user profile/context used for personalization
 
-Note: The files are built from LLaMA3-8B-Instruct predictions (latest runs at creation time).
 
 ## Presentation Rules
 - Blind the methods: randomize which output is shown as A vs B.
@@ -60,12 +59,6 @@ Alignment decision (required):
 - B is more aligned with the profile
 - Tie / indistinguishable
 
-Optional supporting ratings (1-5 each):
-- Relevance / meaning preservation
-- Fluency
-- Style appropriateness
-- Preference alignment
-
 ## Quality Control
 - Each item should be rated by 3 annotators.
 - Use majority vote; if no majority, adjudicate with a 4th rater.
@@ -77,3 +70,30 @@ For each task:
 - Alignment win rate of DPS vs CAD (ties reported separately)
 - Mean optional ratings by method (if collected)
 - Agreement statistics
+
+## Results Summary (Current)
+
+Results below are computed from the annotation aggregates:
+`decore/human_eval/LaMP-4_win_rates.json` and `decore/human_eval/LaMP-7_win_rates.json`.
+
+**LaMP-4 (50 usable rows)**  
+Primary decision:
+- DPS: 19 (38%)
+- CAD: 17 (34%)
+- Tie: 14 (28%)
+
+Alignment decision:
+- DPS: 20 (40%)
+- CAD: 17 (34%)
+- Tie: 13 (26%)
+
+**LaMP-7 (50 usable rows; 55 total annotations with 5 flagged as damaged)**  
+Primary decision:
+- DPS: 14 (28%)
+- CAD: 21 (42%)
+- Tie: 15 (30%)
+
+Alignment decision:
+- DPS: 14 (28%)
+- CAD: 19 (38%)
+- Tie: 17 (34%)

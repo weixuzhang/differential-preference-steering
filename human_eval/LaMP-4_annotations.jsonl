@@ -1,0 +1,50 @@
+{"id": "LaMP-4_1309", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": "[Factual Accuracy: Preserves original meaning without hallucinations or distortions.]"}
+{"id": "LaMP-4_228", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": "[Factual Accuracy: Preserves original meaning without hallucinations or distortions.]"}
+{"id": "LaMP-4_51", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": "[Factual Accuracy: Preserves original meaning without hallucinations or distortions.]"}
+{"id": "LaMP-4_1518", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "User commented: Both are incomplete."}
+{"id": "LaMP-4_563", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": "[Persona Alignment: Better matches the user's vocabulary and specific tone (e.g., slang, emojis).]"}
+{"id": "LaMP-4_501", "choice_primary": "B", "choice_alignment": "A", "winning_method_primary": "CAD", "winning_method_alignment": "DPS", "reason": "[Linguistic Fluency: More natural phrasing and better grammatical flow.]"}
+{"id": "LaMP-4_457", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": "[Factual Accuracy: Preserves original meaning without hallucinations or distortions.]"}
+{"id": "LaMP-4_285", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "[Semantic Equivalence: Both conveyed the same meaning with similar quality.]"}
+{"id": "LaMP-4_1508", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": "[Contextual Nuance: Captures subtle background details mentioned in the profile.]"}
+{"id": "LaMP-4_209", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": "[Linguistic Fluency: More natural phrasing and better grammatical flow., Task-Appropriate Style: Better fits the required format (e.g., punchy headline or casual tweet).]"}
+{"id": "LaMP-4_1385", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": "[Factual Accuracy: Preserves original meaning without hallucinations or distortions.]"}
+{"id": "LaMP-4_1516", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_1827", "choice_primary": "A", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_1116", "choice_primary": "B", "choice_alignment": "A", "winning_method_primary": "CAD", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_178", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_1209", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "User commented: Both are incomplete."}
+{"id": "LaMP-4_864", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "User commented: Both are incomplete."}
+{"id": "LaMP-4_65", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_61", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_191", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_447", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_476", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_1034", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_1232", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "[Negligible Difference: Only minor differences in punctuation or casing.]"}
+{"id": "LaMP-4_54", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_1149", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_407", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_1466", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_1330", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_1436", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_859", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "User commented: Both are incomplete."}
+{"id": "LaMP-4_451", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "[Semantic Equivalence: Both conveyed the same meaning with similar quality.]"}
+{"id": "LaMP-4_919", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_1206", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "User commented: Both are incomplete."}
+{"id": "LaMP-4_569", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_1657", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_1780", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "[Negligible Difference: Only minor differences in punctuation or casing.]"}
+{"id": "LaMP-4_13", "choice_primary": "A", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "DPS", "reason": "User commented: Not sure more information are hallucinations."}
+{"id": "LaMP-4_1554", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "[Ambiguous Input: The input text is too short/vague for a meaningful comparison.]"}
+{"id": "LaMP-4_1650", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_326", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "[Negligible Difference: Only minor differences in punctuation or casing.]"}
+{"id": "LaMP-4_1429", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_865", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_696", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_318", "choice_primary": "A", "choice_alignment": "A", "winning_method_primary": "CAD", "winning_method_alignment": "CAD", "reason": ""}
+{"id": "LaMP-4_440", "choice_primary": "B", "choice_alignment": "B", "winning_method_primary": "DPS", "winning_method_alignment": "DPS", "reason": ""}
+{"id": "LaMP-4_1563", "choice_primary": "B", "choice_alignment": "Tie", "winning_method_primary": "DPS", "winning_method_alignment": "tie", "reason": ""}
+{"id": "LaMP-4_689", "choice_primary": "Tie", "choice_alignment": "Tie", "winning_method_primary": "tie", "winning_method_alignment": "tie", "reason": "[Semantic Equivalence: Both conveyed the same meaning with similar quality.]"}
+{"id": "LaMP-4_189", "choice_primary": "Tie", "choice_alignment": "B", "winning_method_primary": "tie", "winning_method_alignment": "CAD", "reason": "[Ambiguous Input: The input text is too short/vague for a meaningful comparison.]"}
+{"id": "LaMP-4_778", "choice_primary": "Tie", "choice_alignment": "B", "winning_method_primary": "tie", "winning_method_alignment": "CAD", "reason": "[Ambiguous Input: The input text is too short/vague for a meaningful comparison.]"}
