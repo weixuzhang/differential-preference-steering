@@ -175,9 +175,8 @@ attention_maps/*.pt
 *.pdf
 
 # Project data, caches, and logs
-banditpr/
-lamp/
-longlamp/
+/lamp/
+/longlamp/
 multirun/
 preference_head/outputs/
 *.out

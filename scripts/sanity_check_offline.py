@@ -12,7 +12,11 @@ import torch
 from huggingface_hub import snapshot_download
 from transformers import AutoModel, AutoTokenizer
 
-sys.path.append("/scratch/weixuz/banditpr/src")
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_BANDITPR_ROOT = os.environ.get(
+    "BANDITPR_ROOT", os.path.join(_REPO_ROOT, "third_party", "banditpr")
+)
+sys.path.append(os.path.join(_BANDITPR_ROOT, "src"))
 from lamp import load_lamp_dataset
 
 
@@ -82,7 +86,7 @@ def main() -> None:
 
     args = parser.parse_args()
 
-    os.environ.setdefault("LAMP_DATA_ROOT", "/scratch/weixuz/banditpr/dataset")
+    os.environ.setdefault("LAMP_DATA_ROOT", "/scratch/weixuz/lamp_data")
 
     failures = 0
     print("Offline mode:", os.environ.get("HF_OFFLINE", "unset"))

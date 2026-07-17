@@ -66,7 +66,7 @@ for name in metrics:
 PY
 
 # Prefetch LaMP/LongLaMP datasets (train + dev) into the local dataset root
-export LAMP_DATA_ROOT="${LAMP_DATA_ROOT:-${DPS_ROOT}/banditpr/dataset}"
+export LAMP_DATA_ROOT="${LAMP_DATA_ROOT:-/scratch/weixuz/lamp_data}"
 python "${ROOT}/scripts/prefetch_lamp_datasets.py" --splits train,dev
 
 # Prefetch NLTK resources used by METEOR
