@@ -1,0 +1,188 @@
+{
+  "model": "gpt-5.2",
+  "per_task": {
+    "LaMP-4": {
+      "count": 100,
+      "wins": {
+        "dps": 29,
+        "cad": 54,
+        "tie": 17
+      },
+      "alignment_wins": {
+        "dps": 27,
+        "cad": 47,
+        "tie": 26
+      },
+      "rating_sums": {
+        "dps": {
+          "relevance": 397.0,
+          "fluency": 451.0,
+          "style": 362.0,
+          "alignment": 363.0,
+          "factuality": 408.0
+        },
+        "cad": {
+          "relevance": 445.0,
+          "fluency": 483.0,
+          "style": 391.0,
+          "alignment": 393.0,
+          "factuality": 421.0
+        }
+      },
+      "rating_counts": {
+        "dps": {
+          "relevance": 100,
+          "fluency": 100,
+          "style": 100,
+          "alignment": 100,
+          "factuality": 100
+        },
+        "cad": {
+          "relevance": 100,
+          "fluency": 100,
+          "style": 100,
+          "alignment": 100,
+          "factuality": 100
+        }
+      },
+      "avg_ratings": {
+        "dps": {
+          "relevance": 3.97,
+          "fluency": 4.51,
+          "style": 3.62,
+          "alignment": 3.63,
+          "factuality": 4.08
+        },
+        "cad": {
+          "relevance": 4.45,
+          "fluency": 4.83,
+          "style": 3.91,
+          "alignment": 3.93,
+          "factuality": 4.21
+        }
+      }
+    },
+    "LaMP-7": {
+      "count": 100,
+      "wins": {
+        "dps": 28,
+        "cad": 48,
+        "tie": 24
+      },
+      "alignment_wins": {
+        "dps": 22,
+        "cad": 52,
+        "tie": 26
+      },
+      "rating_sums": {
+        "dps": {
+          "relevance": 393.0,
+          "fluency": 438.0,
+          "style": 332.0,
+          "alignment": 316.0,
+          "factuality": 442.0
+        },
+        "cad": {
+          "relevance": 435.0,
+          "fluency": 489.0,
+          "style": 375.0,
+          "alignment": 361.0,
+          "factuality": 475.0
+        }
+      },
+      "rating_counts": {
+        "dps": {
+          "relevance": 100,
+          "fluency": 100,
+          "style": 100,
+          "alignment": 100,
+          "factuality": 100
+        },
+        "cad": {
+          "relevance": 100,
+          "fluency": 100,
+          "style": 100,
+          "alignment": 100,
+          "factuality": 100
+        }
+      },
+      "avg_ratings": {
+        "dps": {
+          "relevance": 3.93,
+          "fluency": 4.38,
+          "style": 3.32,
+          "alignment": 3.16,
+          "factuality": 4.42
+        },
+        "cad": {
+          "relevance": 4.35,
+          "fluency": 4.89,
+          "style": 3.75,
+          "alignment": 3.61,
+          "factuality": 4.75
+        }
+      }
+    }
+  },
+  "overall": {
+    "count": 200,
+    "wins": {
+      "dps": 57,
+      "cad": 102,
+      "tie": 41
+    },
+    "alignment_wins": {
+      "dps": 49,
+      "cad": 99,
+      "tie": 52
+    },
+    "rating_sums": {
+      "dps": {
+        "relevance": 790.0,
+        "fluency": 889.0,
+        "style": 694.0,
+        "alignment": 679.0,
+        "factuality": 850.0
+      },
+      "cad": {
+        "relevance": 880.0,
+        "fluency": 972.0,
+        "style": 766.0,
+        "alignment": 754.0,
+        "factuality": 896.0
+      }
+    },
+    "rating_counts": {
+      "dps": {
+        "relevance": 200,
+        "fluency": 200,
+        "style": 200,
+        "alignment": 200,
+        "factuality": 200
+      },
+      "cad": {
+        "relevance": 200,
+        "fluency": 200,
+        "style": 200,
+        "alignment": 200,
+        "factuality": 200
+      }
+    },
+    "avg_ratings": {
+      "dps": {
+        "relevance": 3.95,
+        "fluency": 4.445,
+        "style": 3.47,
+        "alignment": 3.395,
+        "factuality": 4.25
+      },
+      "cad": {
+        "relevance": 4.4,
+        "fluency": 4.86,
+        "style": 3.83,
+        "alignment": 3.77,
+        "factuality": 4.48
+      }
+    }
+  }
+}

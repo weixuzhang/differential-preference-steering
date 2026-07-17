@@ -1,0 +1,10 @@
+{
+  "task": "LaMP-4",
+  "split": "dev",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "max_profiles": 5,
+  "max_length": 256,
+  "normalize": false,
+  "num_samples": 1925,
+  "embeddings_path": "/scratch/weixuz/preference_head/cluster_runs/lamp4_k19/embeddings_dev.npy"
+}

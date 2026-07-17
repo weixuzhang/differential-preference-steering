@@ -175,18 +175,11 @@ attention_maps/*.pt
 *.pdf
 
 # Project data, caches, and logs
-data/
 banditpr/
 lamp/
 longlamp/
 multirun/
-preference_head/visualizations/
 preference_head/outputs/
-preference_head/cluster_runs/
-preference_head/cluster_heads/
-preference_head/preference_scores/
-preference_head/preference_scores_k/
-preference_head/test_preference_scores/
 *.out
 *.err
 
