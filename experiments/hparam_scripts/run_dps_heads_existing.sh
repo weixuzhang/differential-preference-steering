@@ -9,7 +9,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories (offline)
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -39,7 +39,7 @@ fi
 
 task_slug="lamp1"
 model_slug="llama3-8b-instruct"
-cluster_dir="${ROOT}/preference_head/cluster_runs/${task_slug}_k25"
+cluster_dir="results/preference_head/cluster_runs/${task_slug}_k25"
 emb_file="${cluster_dir}/embeddings_dev.npy"
 
 if [ ! -f "${cluster_dir}/clusters.json" ]; then
@@ -60,9 +60,9 @@ echo "Cluster dir: ${cluster_dir}"
 echo "========================================="
 
 for num_heads in "${HEAD_COUNTS[@]}"; do
-  head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k25_${model_slug}_quick50_h${num_heads}"
+  head_dir="results/preference_head/cluster_heads/${task_slug}_k25_${model_slug}_quick50_h${num_heads}"
   head_dir_filled="${head_dir}_filled"
-  run_dir="${ROOT}/dps/outputs/hparam/heads_quick/h${num_heads}"
+  run_dir="$(pwd)/outputs/hparam/heads_quick/h${num_heads}"
   emb_subset="${cluster_dir}/embeddings_dev_n${NUM_SAMPLES}.npy"
 
   if [ ! -f "${head_dir}/cluster_00/head_weights.json" ]; then
@@ -143,7 +143,7 @@ PY
   fi
 
   mkdir -p "${run_dir}"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \

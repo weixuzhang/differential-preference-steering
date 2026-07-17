@@ -5,15 +5,16 @@ This repository contains code and scripts for **Differential Preference Steering
 ## What’s inside
 - `src/` — core models, datasets, metrics, and decoding logic (DPS, CAD, DeCoRe, DoLa);
   `src/lamp_benchmark/` holds the LaMP/LongLaMP loading, prompting, and metric utilities.
-- `preference_head/` — profile embedding, clustering, head detection, diagnostics, and
-  detection results (`preference_scores*/`, `cluster_heads/`, `cluster_runs/`).
+- `preference_head/` — profile embedding, clustering, head detection, and diagnostics
+  (code only; detection outputs live under `results/preference_head/`).
 - `configs/` — Hydra configs for experiments, models, and decoders.
 - `scripts/` — entry points and utilities (`main.py`, weighted DPS, prefetch, plotting).
 - `experiments/` — experiment launchers: main-table runs, `baseline_scripts/`,
   `e2e_scripts/`, `hparam_scripts/`, quick smoke tests.
 - `slurm/` — Slurm pipeline for the Phi-4 experiment suite.
 - `human_eval/` — LLM-judge evaluation scripts, annotations, and win rates.
-- `results/`, `plots/` — aggregated evaluation tables and generated figures.
+- `results/`, `plots/` — aggregated evaluation tables, preference-head detection
+  outputs (`results/preference_head/`), and generated figures.
 - `docs/` — methodology, workflow, integration and analysis write-ups
   (`docs/tempdocs/` holds historical dev notes).
 - `data/`, `notebooks/`, `retrieval_heads/`, `tests/` — eval data, analysis

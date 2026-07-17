@@ -11,7 +11,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Cache directories (same as decore)
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"

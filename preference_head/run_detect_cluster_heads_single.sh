@@ -9,7 +9,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Cache directories
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -21,8 +21,8 @@ TASK="LaMP-1"
 MODEL_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
 TARGET_GROUP=100
 K=$(python preference_head/compute_k.py --task "${TASK}" --split dev --target_group "${TARGET_GROUP}")
-CLUSTER_DIR="/scratch/weixuz/preference_head/cluster_runs/lamp1_k${K}"
-OUT_DIR="/scratch/weixuz/preference_head/cluster_heads/lamp1_k${K}"
+CLUSTER_DIR="results/preference_head/cluster_runs/lamp1_k${K}"
+OUT_DIR="results/preference_head/cluster_heads/lamp1_k${K}"
 
 python preference_head/detect_cluster_heads.py \
   --cluster_file "${CLUSTER_DIR}/clusters.json" \

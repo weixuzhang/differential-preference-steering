@@ -13,19 +13,19 @@ We embed user profiles and run k-means with a target group size of ~100 users. K
 
 | Task | Dev samples | K (clusters) | Cluster size min/mean/max | Cluster file |
 | --- | --- | --- | --- | --- |
-| LaMP-1 | 2500 | 25 | 18/100.0/179 | `preference_head/cluster_runs/lamp1_k25/clusters.json` |
-| LaMP-2 | 692 | 7 | 18/98.9/225 | `preference_head/cluster_runs/lamp2_k7/clusters.json` |
-| LaMP-3 | 2500 | 25 | 1/100.0/242 | `preference_head/cluster_runs/lamp3_k25/clusters.json` |
-| LaMP-4 | 1925 | 19 | 5/101.3/467 | `preference_head/cluster_runs/lamp4_k19/clusters.json` |
-| LaMP-5 | 2500 | 25 | 18/100.0/155 | `preference_head/cluster_runs/lamp5_k25/clusters.json` |
-| LaMP-7 | 1500 | 15 | 39/100.0/150 | `preference_head/cluster_runs/lamp7_k15/clusters.json` |
+| LaMP-1 | 2500 | 25 | 18/100.0/179 | `results/preference_head/cluster_runs/lamp1_k25/clusters.json` |
+| LaMP-2 | 692 | 7 | 18/98.9/225 | `results/preference_head/cluster_runs/lamp2_k7/clusters.json` |
+| LaMP-3 | 2500 | 25 | 1/100.0/242 | `results/preference_head/cluster_runs/lamp3_k25/clusters.json` |
+| LaMP-4 | 1925 | 19 | 5/101.3/467 | `results/preference_head/cluster_runs/lamp4_k19/clusters.json` |
+| LaMP-5 | 2500 | 25 | 18/100.0/155 | `results/preference_head/cluster_runs/lamp5_k25/clusters.json` |
+| LaMP-7 | 1500 | 15 | 39/100.0/150 | `results/preference_head/cluster_runs/lamp7_k15/clusters.json` |
 
 ## Stage 1: Preference Head Detection (PCS)
 We compute per-head PCS by ablation within each cluster, then select the top ~4% heads (40 heads for LLaMA3). Below are summary diagnostics for LaMP-1 head discovery (clustered and per-user analyses).
 
-- Cluster-level head-set Jaccard overlap (LaMP-1 k): mean=0.5127, min=0.2903, max=0.7391 (`preference_head/visualizations/lamp1_k/headset_jaccard.csv`).
-- Cluster-level PCS rank correlation (Spearman): mean=0.8833, min=0.7273, max=0.9763 (`preference_head/visualizations/lamp1_k/pcs_spearman.csv`).
-- User-level head overlap (k=1, 50 users): min=0.0390, mean=0.1609, max=0.3559 (`preference_head/visualizations/lamp1_k1_users/user_jaccard_summary.txt`).
+- Cluster-level head-set Jaccard overlap (LaMP-1 k): mean=0.5127, min=0.2903, max=0.7391 (`results/preference_head/visualizations/lamp1_k/headset_jaccard.csv`).
+- Cluster-level PCS rank correlation (Spearman): mean=0.8833, min=0.7273, max=0.9763 (`results/preference_head/visualizations/lamp1_k/pcs_spearman.csv`).
+- User-level head overlap (k=1, 50 users): min=0.0390, mean=0.1609, max=0.3559 (`results/preference_head/visualizations/lamp1_k1_users/user_jaccard_summary.txt`).
 - Most frequent heads across 50 users (k=1):
 
 | Rank | Layer | Head | Count |
@@ -37,12 +37,12 @@ We compute per-head PCS by ablation within each cluster, then select the top ~4%
 | 5 | 2 | 15 | 39 |
 
 ### Head Detection Visualizations
-- Cluster PCS heatmap grid: `preference_head/visualizations/lamp1_k/pcs_heatmap_grid.png`
-- Cluster head-set overlap heatmap: `preference_head/visualizations/lamp1_k/headset_jaccard_heatmap.png`
-- Cluster PCS Spearman heatmap: `preference_head/visualizations/lamp1_k/pcs_spearman_heatmap.png`
-- User PCS grid (9 users): `preference_head/visualizations/lamp1_k1_users_9/pcs_heatmap_grid.png`
-- User PCS Spearman (9 users): `preference_head/visualizations/lamp1_k1_users_9_spearman/pcs_spearman_heatmap.png`
-- User PCS Spearman (50 users): `preference_head/visualizations/lamp1_k1_users_50_spearman/pcs_spearman_heatmap.png`
+- Cluster PCS heatmap grid: `results/preference_head/visualizations/lamp1_k/pcs_heatmap_grid.png`
+- Cluster head-set overlap heatmap: `results/preference_head/visualizations/lamp1_k/headset_jaccard_heatmap.png`
+- Cluster PCS Spearman heatmap: `results/preference_head/visualizations/lamp1_k/pcs_spearman_heatmap.png`
+- User PCS grid (9 users): `results/preference_head/visualizations/lamp1_k1_users_9/pcs_heatmap_grid.png`
+- User PCS Spearman (9 users): `results/preference_head/visualizations/lamp1_k1_users_9_spearman/pcs_spearman_heatmap.png`
+- User PCS Spearman (50 users): `results/preference_head/visualizations/lamp1_k1_users_50_spearman/pcs_spearman_heatmap.png`
 
 ## Stage 2: DPS and Baselines (Main Results)
 For each task, we report task-specific metrics. Missing entries indicate runs that did not finish or are absent from the summary. **Note:** rows with small sample counts (e.g., 50 or 2) are quick sanity/partial runs and should not be compared directly to full-dev results.

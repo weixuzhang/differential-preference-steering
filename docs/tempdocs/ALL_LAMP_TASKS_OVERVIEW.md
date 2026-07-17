@@ -191,27 +191,27 @@ LaMP-6 (Avocado):
 
 ```bash
 # 1. Create configs
-cp /scratch/weixuz/dps/configs/data/lamp_4.yaml \
-   /scratch/weixuz/dps/configs/data/lamp_5.yaml
+cp /scratch/weixuz/dps-dev-dev/configs/data/lamp_4.yaml \
+   /scratch/weixuz/dps-dev-dev/configs/data/lamp_5.yaml
 
-cp /scratch/weixuz/dps/configs/data/lamp_4.yaml \
-   /scratch/weixuz/dps/configs/data/lamp_7.yaml
+cp /scratch/weixuz/dps-dev-dev/configs/data/lamp_4.yaml \
+   /scratch/weixuz/dps-dev-dev/configs/data/lamp_7.yaml
 
 # 2. Update task names in configs
 # Edit lamp_5.yaml: name: LAMP_5
 # Edit lamp_7.yaml: name: LAMP_7
 
 # 3. Create experiment configs
-mkdir -p /scratch/weixuz/dps/configs/experiment/lamp_5/dps
-mkdir -p /scratch/weixuz/dps/configs/experiment/lamp_7/dps
+mkdir -p /scratch/weixuz/dps-dev-dev/configs/experiment/lamp_5/dps
+mkdir -p /scratch/weixuz/dps-dev-dev/configs/experiment/lamp_7/dps
 
 # 4. Detect preference heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-5 --num_samples 400
 python preference_head_detection.py --task LaMP-7 --num_samples 400
 
 # 5. Run DPS experiments
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_5/dps/llama3_8b_instruct
 python scripts/main.py experiment=lamp_7/dps/llama3_8b_instruct
 ```
@@ -222,7 +222,7 @@ python scripts/main.py experiment=lamp_7/dps/llama3_8b_instruct
 **Goal**: 10/11 tasks (91% coverage)
 
 1. **Update dataset loader** to support LongLaMP
-   - Modify `/scratch/weixuz/dps/src/datasets/lamp.py`
+   - Modify `/scratch/weixuz/dps-dev-dev/src/datasets/lamp.py`
    - Add LongLaMP dataset loading from HuggingFace
 
 2. **Create configs** for LongLaMP-1, 2, 3, 4
@@ -345,11 +345,11 @@ cp configs/experiment/lamp_4/dps/llama3_8b_instruct.yaml \
    configs/experiment/lamp_X/dps/llama3_8b_instruct.yaml
 
 # 4. Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-X --num_samples 400
 
 # 5. Run experiment
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_X/dps/llama3_8b_instruct
 ```
 

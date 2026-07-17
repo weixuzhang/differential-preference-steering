@@ -58,13 +58,13 @@ You now have a **publication-ready evaluation framework** with:
 
 ### **1. Test CAD/CD** (5 minutes)
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_cad_cd.sh
 ```
 
 ### **2. Single Task, All Methods** (2-3 hours)
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 TASK="lamp_1"
 MODEL="llama3_8b_instruct"
 
@@ -78,11 +78,11 @@ python evaluate_predictions.py
 ### **3. Complete Evaluation** (4-5 days)
 ```bash
 # Step 1: Detect preference heads for all models (~20-24 hours)
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_multi_model.sh
 
 # Step 2: Run all experiments (~80-100 hours)
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_all_methods.sh
 
 # Step 3: Evaluate results
@@ -214,7 +214,7 @@ Contains comprehensive metrics organized by:
 
 ```bash
 # Test all methods on one task-model combination
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 TASK="lamp_1"
 MODEL="llama3_8b_instruct"
 
@@ -235,7 +235,7 @@ done
 
 ```bash
 # Run all methods on LLaMA-3-8B for all tasks
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 MODEL="llama3_8b_instruct"
 
 for task in lamp_{1,2,3,4,5,7} longlamp_{1,2,3,4}; do
@@ -259,7 +259,7 @@ python evaluate_predictions.py
 
 ```bash
 # Run best methods (DeCoRe, DPS) on all models
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 
 for task in lamp_{1,2,3,4,5,7} longlamp_{1,2,3,4}; do
   for model in llama3_8b_instruct llama2_7b_instruct qwen2_7b_instruct mistral_7b_instruct; do
@@ -286,11 +286,11 @@ python evaluate_predictions.py
 
 ```bash
 # Detect preference heads for all models
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_multi_model.sh
 
 # Wait for completion (~20-24 hours), then:
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_all_methods.sh
 
 # Wait for completion (~80-100 hours), then:
@@ -404,14 +404,14 @@ decore/
 ### **Immediate** (Today)
 ```bash
 # Test CAD/CD to verify everything works
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_cad_cd.sh
 ```
 
 ### **Short-term** (This Week)
 ```bash
 # Run single model evaluation
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 MODEL="llama3_8b_instruct"
 for task in lamp_{1,2,3,4,5,7} longlamp_{1,2,3,4}; do
   for method in baseline context_aware_decoding contrastive_decoding decore_entropy dps; do
@@ -423,10 +423,10 @@ done
 ### **Long-term** (This Month)
 ```bash
 # Complete evaluation
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_multi_model.sh
 
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_all_methods.sh
 ```
 
@@ -459,7 +459,7 @@ You now have a **world-class personalization evaluation framework**!
 **Ready to start?**
 
 ```bash
-cd /scratch/weixuz/dps && bash experiments/test_cad_cd.sh
+cd /scratch/weixuz/dps-dev && bash experiments/test_cad_cd.sh
 ```
 
 **Good luck with your research! 🎓**

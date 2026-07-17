@@ -11,15 +11,15 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Cache directories (same as decore)
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
 export HF_OFFLINE=true
 
 MODEL_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
-PREF_DIR="/scratch/weixuz/preference_head/preference_scores"
-OUT_DIR="/scratch/weixuz/preference_head/visualizations"
+PREF_DIR="results/preference_head/preference_scores"
+OUT_DIR="results/preference_head/visualizations"
 
 mkdir -p ${OUT_DIR}
 

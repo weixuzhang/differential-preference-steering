@@ -5,7 +5,7 @@ set -euo pipefail
 ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"

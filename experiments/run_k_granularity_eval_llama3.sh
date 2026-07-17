@@ -12,7 +12,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Cache directories (same as decore)
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -25,7 +25,7 @@ tasks=(lamp_1 lamp_3)
 
 for task in "${tasks[@]}"; do
   for k in "${ks[@]}"; do
-    heads_dir="/scratch/weixuz/dps/preference_head/preference_scores_k/LaMP-${task#lamp_}/k${k}"
+    heads_dir="results/preference_head/preference_scores_k/LaMP-${task#lamp_}/k${k}"
     echo "-----------------------------------------"
     echo "Task: ${task} | k=${k}"
     echo "Preference heads dir: ${heads_dir}"

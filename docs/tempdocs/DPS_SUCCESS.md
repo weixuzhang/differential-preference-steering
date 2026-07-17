@@ -32,7 +32,7 @@ Personalized Output
 ### 1. Preference Head Detection (Already Done ✅)
 - Detected 40 preference heads for LaMP-1
 - Top heads: [28,18], [30,18], [29,18], [31,5], [2,15], ...
-- Saved in: `/scratch/weixuz/dps/preference_head/preference_scores/`
+- Saved in: `results/preference_head/preference_scores/`
 
 ### 2. DPS Generation (Token-by-Token)
 For each token:
@@ -109,19 +109,19 @@ Preference heads for LaMP-1: [[28, 18], [30, 18], [29, 18], ...]
 
 ### 1. Quick Test (2 minutes)
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_dps.sh
 ```
 
 ### 2. Full Experiment (30-60 minutes)
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps.sh
 ```
 
 ### 3. Manual Run
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 source /scratch/weixuz/envs/decore/bin/activate
 
 python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct
@@ -255,14 +255,14 @@ DPS uses the same contrastive decoding approach as DeCoRe:
 ### For LaMP-2/3/4 (Need Preference Heads)
 1. Detect preference heads:
    ```bash
-   cd /scratch/weixuz/dps/preference_head
+   cd /scratch/weixuz/dps-dev-dev/preference_head
    # Edit run_detection.sh: uncomment LaMP-2/3/4
    sbatch run_detection.sh
    ```
 
 2. Run DPS experiments:
    ```bash
-   cd /scratch/weixuz/dps
+   cd /scratch/weixuz/dps-dev
    python scripts/main.py experiment=lamp_2/dps/llama3_8b_instruct
    ```
 

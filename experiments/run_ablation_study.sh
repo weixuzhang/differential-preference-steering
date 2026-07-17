@@ -14,7 +14,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Set cache directories
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -32,7 +32,7 @@ TASKS=("lamp_1" "lamp_2" "lamp_3" "lamp_4" "lamp_5" "lamp_7" "longlamp_1" "longl
 TASK_DISPLAY=("LaMP-1" "LaMP-2" "LaMP-3" "LaMP-4" "LaMP-5" "LaMP-7" "LongLaMP-1" "LongLaMP-2" "LongLaMP-3" "LongLaMP-4")
 NUM_HEADS=(10 20 30 40 50 60 70 80 90 100)
 
-PREF_HEAD_DIR="/scratch/weixuz/dps/preference_head/preference_scores"
+PREF_HEAD_DIR="results/preference_head/preference_scores"
 
 echo "Model: ${MODEL}"
 echo "Tasks: ${#TASKS[@]}"
@@ -62,7 +62,7 @@ if [ "$all_heads_detected" = false ]; then
   echo ""
   echo "⚠️  Warning: Some preference heads are missing!"
   echo "Please run preference head detection first:"
-  echo "  cd /scratch/weixuz/dps/preference_head"
+  echo "  cd preference_head"
   echo "  sbatch run_detection_all_tasks.sh"
   echo ""
   exit 1

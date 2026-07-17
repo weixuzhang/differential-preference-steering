@@ -12,12 +12,12 @@ from typing import Dict, List, Optional, Tuple
 
 import sys
 
-sys.path.append("/scratch/weixuz/dps")
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(REPO_ROOT))
 from evaluate_predictions import evaluate_predictions
 
 
-ROOT = Path("/scratch/weixuz")
-HYPARAM_DIR = ROOT / "dps" / "outputs" / "hparam"
+HYPARAM_DIR = REPO_ROOT / "outputs" / "hparam"
 
 
 def _read_tsv(path: Path) -> List[Dict[str, str]]:
@@ -151,7 +151,7 @@ def _compare_pairs(rows: List[Dict[str, object]], key: str, a: str, b: str) -> D
 
 def _find_true_heads(task: str) -> Optional[Path]:
     patterns = [
-        ROOT / "dps" / "outputs",
+        REPO_ROOT / "outputs",
         ROOT / "outputs",
     ]
     matches = []
@@ -184,7 +184,7 @@ def _table(rows: List[List[str]]) -> str:
 
 
 def main() -> None:
-    report_path = ROOT / "dps" / "docs" / "HYPERPARAM_ABLATION_RESULTS.md"
+    report_path = REPO_ROOT / "docs" / "HYPERPARAM_ABLATION_RESULTS.md"
 
     heads_rows = _read_tsv(HYPARAM_DIR / "heads_quick" / "summary.tsv")
     groups_rows = _read_tsv(HYPARAM_DIR / "groupsize_quick" / "summary.tsv")

@@ -43,13 +43,13 @@ def _find_head_dir(root: Path, pattern: str) -> Path | None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Plot heads sweep results")
-    parser.add_argument("--outputs_root", default="/scratch/weixuz/dps/outputs/hparam/heads_quick")
-    parser.add_argument("--heads_root", default="/scratch/weixuz/dps/preference_head/cluster_heads")
+    parser.add_argument("--outputs_root", default="outputs/hparam/heads_quick")
+    parser.add_argument("--heads_root", default="results/preference_head/cluster_heads")
     parser.add_argument("--task", default="LaMP-1")
     parser.add_argument("--model_slug", default="llama3-8b-instruct")
     parser.add_argument("--head_counts", default="10,20,40,80,160")
     parser.add_argument("--bootstrap", type=int, default=300)
-    parser.add_argument("--out_dir", default="/scratch/weixuz/dps/outputs/hparam/figures/heads")
+    parser.add_argument("--out_dir", default="outputs/hparam/figures/heads")
     args = parser.parse_args()
 
     outputs_root = Path(args.outputs_root)

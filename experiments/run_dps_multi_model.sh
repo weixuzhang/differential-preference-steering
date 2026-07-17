@@ -12,7 +12,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Set cache directories
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -36,7 +36,7 @@ MODEL_CONFIGS["mistral_7b_instruct"]="Mistral-7B-Instruct-v0.3"
 TASKS=("lamp_1" "lamp_2" "lamp_3" "lamp_4" "lamp_5" "lamp_7" "longlamp_1" "longlamp_2" "longlamp_3" "longlamp_4")
 TASK_DISPLAY=("LaMP-1" "LaMP-2" "LaMP-3" "LaMP-4" "LaMP-5" "LaMP-7" "LongLaMP-1" "LongLaMP-2" "LongLaMP-3" "LongLaMP-4")
 
-PREF_HEAD_DIR="/scratch/weixuz/dps/preference_head/preference_scores"
+PREF_HEAD_DIR="results/preference_head/preference_scores"
 
 # Check which model-task combinations have preference heads
 echo "Checking for detected preference heads..."

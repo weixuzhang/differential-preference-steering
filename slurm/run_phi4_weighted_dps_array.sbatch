@@ -35,7 +35,7 @@ TEMPERATURE="${TEMPERATURE:-1.0}"
 NUM_RETRIEVE="${NUM_RETRIEVE:-5}"
 MAX_PROMPT_LENGTH="${MAX_PROMPT_LENGTH:-2048}"
 
-K="$(python "${ROOT}/preference_head/compute_k.py" --task "${TASK}" --split "${SPLIT}" --target_group "${TARGET_GROUP}")"
+K="$(python "preference_head/compute_k.py" --task "${TASK}" --split "${SPLIT}" --target_group "${TARGET_GROUP}")"
 CLUSTER_DIR="${RUN_ROOT}/cluster_runs/${TASK_SLUG}_k${K}"
 HEADS_DIR="${RUN_ROOT}/cluster_heads/phi4_mini_instruct/${TASK_SLUG}_k${K}"
 RUN_STAMP="${SLURM_JOB_ID}_${SLURM_ARRAY_TASK_ID}"

@@ -12,7 +12,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -45,20 +45,20 @@ else
   TASK_DECODER="LAMP_${TASK_INPUT#LaMP-}"
 fi
 
-K=$(python "${ROOT}/preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${TARGET_GROUP}")
+K=$(python "preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${TARGET_GROUP}")
 if [ -z "${K}" ]; then
   echo "Failed to compute K for ${TASK}"
   exit 1
 fi
 
 task_slug=$(echo "${TASK}" | tr '[:upper:]' '[:lower:]' | tr -d '-')
-cluster_dir="${ROOT}/preference_head/cluster_runs/${task_slug}_k${K}"
+cluster_dir="results/preference_head/cluster_runs/${task_slug}_k${K}"
 cluster_file="${cluster_dir}/clusters.json"
 emb_file="${cluster_dir}/embeddings_dev.npy"
 
 model_slug=$(echo "${MODEL_NAME}" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9' '-' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')
-old_head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}"
-head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
+old_head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}"
+head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
 
 export OLD_HEAD_DIR="${old_head_dir}"
 export NEW_HEAD_DIR="${head_dir}"
@@ -75,7 +75,7 @@ echo "========================================="
 
 if [ ! -f "${cluster_file}" ]; then
   echo "[0/4] Clustering dev profiles (missing clusters.json)..."
-  python "${ROOT}/preference_head/cluster_profiles.py" \
+  python "preference_head/cluster_profiles.py" \
     --task "${TASK}" \
     --split dev \
     --k "${K}" \
@@ -86,7 +86,7 @@ fi
 
 if [ ! -f "${emb_file}" ]; then
   echo "[0.5/4] Building dev embeddings for routing..."
-  python "${ROOT}/preference_head/embed_profiles.py" \
+  python "preference_head/embed_profiles.py" \
     --task "${TASK}" \
     --split dev \
     --output_file "${emb_file}" \
@@ -136,7 +136,7 @@ if [ -n "${missing_ids}" ]; then
   IFS=',' read -r -a missing_list <<< "${missing_ids}"
   echo "[2/4] Re-detecting missing clusters: ${missing_ids}"
   for cid in "${missing_list[@]}"; do
-    python "${ROOT}/preference_head/detect_cluster_heads.py" \
+    python "preference_head/detect_cluster_heads.py" \
       --cluster_file "${cluster_file}" \
       --model_path "${MODEL_PATH}" \
       --task "${TASK}" \
@@ -180,7 +180,7 @@ print("All clusters present.")
 PY
 
 echo "[4/4] Running weighted DPS..."
-python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+python "$(pwd)/scripts/run_weighted_dps.py" \
   --task "${TASK_DECODER}" \
   --model_path "${MODEL_PATH}" \
   --model_name "${MODEL_NAME}" \

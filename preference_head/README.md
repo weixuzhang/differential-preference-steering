@@ -51,7 +51,7 @@ pip install torch transformers datasets
 pip install numpy tqdm
 
 # For LAMP dataset integration
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 # (ensure LAMP_DATA_ROOT points at the dataset)
 ```
 

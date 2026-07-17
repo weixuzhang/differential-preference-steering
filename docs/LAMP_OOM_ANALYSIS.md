@@ -67,7 +67,7 @@ Modify the LAMP dataset loader to truncate profiles to a manageable size.
 
 **Implementation:**
 
-Edit `/scratch/weixuz/dps/src/datasets/lamp.py`:
+Edit `/scratch/weixuz/dps-dev-dev/src/datasets/lamp.py`:
 
 ```python
 def _get_instruction(self, task: str, profiles: List[Dict], query: str, corpus: List[str]) -> str:

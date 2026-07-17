@@ -314,7 +314,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--output_dir",
-        default="./visualizations",
+        default="results/preference_head/visualizations",
         help="Directory to save outputs.",
     )
     args = parser.parse_args()

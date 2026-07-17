@@ -23,7 +23,7 @@ You have two options:
 **Batch job** (~2 hours total for all 4 tasks):
 
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_all_tasks.sh
 ```
 
@@ -51,7 +51,7 @@ If you want more control or need to run one task at a time:
 
 **LaMP-2 (Movie Tagging)**:
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py \
   --model_path meta-llama/Meta-Llama-3-8B-Instruct \
   --task LaMP-2 \
@@ -96,7 +96,7 @@ sbatch run_detection.sh
 After detection completes, verify all files are created:
 
 ```bash
-cd /scratch/weixuz/dps/preference_head/preference_scores
+cd results/preference_head/preference_scores
 ls -lh *_top_heads.json
 ```
 
@@ -134,7 +134,7 @@ Once all preference heads are detected, run DPS experiments.
 **Batch job** (~3 hours total for all 4 tasks):
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_all_tasks.sh
 ```
 
@@ -148,7 +148,7 @@ sbatch experiments/run_dps_all_tasks.sh
 
 **LaMP-1**:
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct
 ```
 
@@ -189,7 +189,7 @@ python scripts/main.py experiment=lamp_4/dps/llama3_8b_instruct \
 After all experiments complete:
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python evaluate_predictions.py
 ```
 
@@ -225,11 +225,11 @@ python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct
 
 ```bash
 # Step 1: Detect preference heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-2 --num_samples 400
 
 # Step 2: Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_2/dps/llama3_8b_instruct
 ```
 
@@ -241,11 +241,11 @@ python scripts/main.py experiment=lamp_2/dps/llama3_8b_instruct
 
 ```bash
 # Step 1: Detect preference heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-3 --num_samples 400
 
 # Step 2: Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_3/dps/llama3_8b_instruct
 ```
 
@@ -257,11 +257,11 @@ python scripts/main.py experiment=lamp_3/dps/llama3_8b_instruct
 
 ```bash
 # Step 1: Detect preference heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-4 --num_samples 400
 
 # Step 2: Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_4/dps/llama3_8b_instruct
 ```
 
@@ -294,7 +294,7 @@ python scripts/main.py experiment=lamp_4/dps/llama3_8b_instruct
 ### Detection
 ```bash
 # All tasks at once
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_all_tasks.sh
 
 # Check progress
@@ -307,7 +307,7 @@ ls -lh preference_scores/*_top_heads.json
 ### Experiments
 ```bash
 # All tasks at once
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_all_tasks.sh
 
 # Check progress
@@ -319,7 +319,7 @@ ls -lh outputs/*dps*.json
 
 ### Evaluation
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python evaluate_predictions.py
 cat outputs/evaluation_summary.json
 ```
@@ -392,7 +392,7 @@ python evaluate_predictions.py --compare baseline decore dps
 
 **Solution**: Ensure you're running from the correct directory
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-X ...
 ```
 
@@ -402,7 +402,7 @@ python preference_head_detection.py --task LaMP-X ...
 
 **Solution**: Run detection first
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-X --num_samples 400
 ```
 
@@ -536,11 +536,11 @@ done
 
 ```bash
 # Step 1: Detect preference heads for all remaining tasks
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_all_tasks.sh
 
 # Step 2: Once detection completes, run DPS on all tasks
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_all_tasks.sh
 
 # Step 3: Analyze results

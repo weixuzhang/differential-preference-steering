@@ -13,7 +13,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Set cache directories
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -22,7 +22,7 @@ export HF_OFFLINE=true
 # Detection parameters
 NUM_SAMPLES=400  # Number of samples for detection
 TOP_PERCENT=0.04  # Select top 4% of heads (40 heads)
-SAVE_DIR="/scratch/weixuz/preference_head/preference_scores"
+SAVE_DIR="results/preference_head/preference_scores"
 
 # Create save directory
 mkdir -p ${SAVE_DIR}

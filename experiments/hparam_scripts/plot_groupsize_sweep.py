@@ -55,11 +55,11 @@ def json_load(fh):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Plot group-size sweep results")
-    parser.add_argument("--outputs_root", default="/scratch/weixuz/dps/outputs/hparam/groupsize_quick")
-    parser.add_argument("--cluster_root", default="/scratch/weixuz/dps/preference_head/cluster_runs")
+    parser.add_argument("--outputs_root", default="outputs/hparam/groupsize_quick")
+    parser.add_argument("--cluster_root", default="results/preference_head/cluster_runs")
     parser.add_argument("--group_sizes", default="10,50,100,200,400")
     parser.add_argument("--bootstrap", type=int, default=300)
-    parser.add_argument("--out_dir", default="/scratch/weixuz/dps/outputs/hparam/figures/groupsize")
+    parser.add_argument("--out_dir", default="outputs/hparam/figures/groupsize")
     args = parser.parse_args()
 
     outputs_root = Path(args.outputs_root)

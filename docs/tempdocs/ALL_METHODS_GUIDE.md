@@ -135,11 +135,11 @@ This is the **most comprehensive evaluation**:
 
 ```bash
 # Step 1: Detect preference heads for DPS (if not done)
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_multi_model.sh  # ~20-24 hours
 
 # Step 2: Run all experiments
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_all_methods.sh  # ~80-100 hours
 
 # Step 3: Evaluate
@@ -160,7 +160,7 @@ Test all methods on one model (e.g., LLaMA-3-8B):
 MODEL="llama3_8b_instruct"
 
 # Run all methods on all tasks
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 for task in lamp_{1,2,3,4,5,7} longlamp_{1,2,3,4}; do
   # Baseline
   python scripts/main.py experiment=${task}/baseline/${MODEL}
@@ -194,7 +194,7 @@ Compare all methods on one task (e.g., LaMP-1):
 ```bash
 TASK="lamp_1"
 
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 for model in llama3_8b_instruct llama2_7b_instruct qwen2_7b_instruct mistral_7b_instruct; do
   # Baseline
   python scripts/main.py experiment=${TASK}/baseline/${model}
@@ -226,7 +226,7 @@ python evaluate_predictions.py
 Test CAD and CD on a small sample:
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_cad_cd.sh
 ```
 
@@ -507,13 +507,13 @@ Contains comprehensive metrics for all experiments, organized by:
 
 #### **Test CAD/CD** (~5 min)
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_cad_cd.sh
 ```
 
 #### **Single Task Comparison** (~2-3 hours)
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 # Run all methods on LaMP-1 with LLaMA-3-8B
 for method in baseline context_aware_decoding contrastive_decoding decore_entropy dps; do
   python scripts/main.py experiment=lamp_1/${method}/llama3_8b_instruct
@@ -523,11 +523,11 @@ done
 #### **Complete Evaluation** (~4-5 days)
 ```bash
 # Detect preference heads (if needed)
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_multi_model.sh
 
 # Run all experiments
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_all_methods.sh
 ```
 
@@ -551,7 +551,7 @@ You now have the **most comprehensive personalization evaluation framework**:
 **Ready to start?**
 
 ```bash
-cd /scratch/weixuz/dps && bash experiments/test_cad_cd.sh
+cd /scratch/weixuz/dps-dev && bash experiments/test_cad_cd.sh
 ```
 
 **Good luck! 🎓**

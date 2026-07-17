@@ -10,7 +10,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -42,8 +42,8 @@ task_slug=$(echo "${TASK}" | tr '[:upper:]' '[:lower:]' | tr -d '-')
 model_slug=$(echo "${MODEL_NAME}" | tr "[:upper:]" "[:lower:]" | tr -c "a-z0-9" "-" | sed "s/--*/-/g" | sed "s/^-//;s/-$//")
 
 # Reuse cached embeddings (skip embedding model).
-K_BASE=$(python "${ROOT}/preference_head/compute_k.py" --task "${TASK}" --split dev --target_group 100)
-BASE_CLUSTER="${ROOT}/preference_head/cluster_runs/${task_slug}_k${K_BASE}"
+K_BASE=$(python "preference_head/compute_k.py" --task "${TASK}" --split dev --target_group 100)
+BASE_CLUSTER="results/preference_head/cluster_runs/${task_slug}_k${K_BASE}"
 BASE_EMB="${BASE_CLUSTER}/embeddings_dev.npy"
 if [ ! -f "${BASE_EMB}" ]; then
   echo "Missing base embeddings: ${BASE_EMB}"
@@ -58,16 +58,16 @@ echo "Eval samples: ${EVAL_SAMPLES}"
 echo "========================================="
 
 for target_group in "${GROUP_SIZES[@]}"; do
-  K=$(python "${ROOT}/preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${target_group}")
+  K=$(python "preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${target_group}")
   if [ -z "${K}" ]; then
     echo "Failed to compute K for ${TASK} (target_group=${target_group})"
     continue
   fi
 
-  cluster_dir="${ROOT}/preference_head/cluster_runs/${task_slug}_k${K}"
+  cluster_dir="results/preference_head/cluster_runs/${task_slug}_k${K}"
   emb_file="${cluster_dir}/embeddings_dev.npy"
-  head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}_quick50"
-  run_dir="${ROOT}/dps/outputs/hparam/groupsize_quick/g${target_group}"
+  head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}_quick50"
+  run_dir="$(pwd)/outputs/hparam/groupsize_quick/g${target_group}"
 
   if [ ! -f "${cluster_dir}/clusters.json" ]; then
     echo "Building clusters from cached embeddings (k=${K})..."
@@ -150,7 +150,7 @@ PY
         if [ "${cluster_end}" -ge "${K}" ]; then
           cluster_end=$((K - 1))
         fi
-        python "${ROOT}/preference_head/detect_cluster_heads.py" \
+        python "preference_head/detect_cluster_heads.py" \
           --cluster_file "${cluster_dir}/clusters.json" \
           --model_path "${MODEL_PATH}" \
           --task "${TASK}" \
@@ -166,7 +166,7 @@ PY
         cluster_start=$((cluster_end + 1))
       done
     else
-      python "${ROOT}/preference_head/detect_cluster_heads.py" \
+      python "preference_head/detect_cluster_heads.py" \
         --cluster_file "${cluster_dir}/clusters.json" \
         --model_path "${MODEL_PATH}" \
         --task "${TASK}" \
@@ -183,7 +183,7 @@ PY
   fi
 
   mkdir -p "${run_dir}"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \

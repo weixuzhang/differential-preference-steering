@@ -10,7 +10,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -43,7 +43,7 @@ import os
 
 task_slug = "${task_slug}"
 target_group = int("${TARGET_GROUP}")
-base = "/scratch/weixuz/dps/preference_head/cluster_runs"
+base = "results/preference_head/cluster_runs"
 cands = glob.glob(os.path.join(base, f"{task_slug}_k*"))
 best = None
 best_score = None
@@ -84,7 +84,7 @@ PY
 
   model_slug=$(echo "${MODEL_NAME}" | tr "[:upper:]" "[:lower:]" | tr -c "a-z0-9" "-" | sed "s/--*/-/g" | sed "s/^-//;s/-$//")
   emb_file="${cluster_dir}/embeddings_dev.npy"
-  head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
+  head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
 
   if [ ! -f "${cluster_dir}/clusters.json" ]; then
     echo "Missing ${cluster_dir}/clusters.json, skipping ${TASK}."
@@ -171,14 +171,14 @@ PY
 
   if [ ! -f "${random_head_dir}/cluster_00/head_weights.json" ]; then
     echo "Creating randomized head weights..."
-    python "${ROOT}/preference_head/randomize_cluster_head_weights.py" \
+    python "preference_head/randomize_cluster_head_weights.py" \
       --src_dir "${head_dir}" \
       --out_dir "${random_head_dir}" \
       --seed 1234
   fi
 
-  mkdir -p "${ROOT}/dps/outputs/hparam/ablation_full/${task_slug}/random_heads"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  mkdir -p "$(pwd)/outputs/hparam/ablation_full/${task_slug}/random_heads"
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \
@@ -188,19 +188,19 @@ PY
     --embeddings_file "${emb_file}" \
     --routing soft \
     --temperature 1.0 \
-    --run_dir "${ROOT}/dps/outputs/hparam/ablation_full/${task_slug}/random_heads"
+    --run_dir "$(pwd)/outputs/hparam/ablation_full/${task_slug}/random_heads"
 
   if [ ! -f "${random_mask_dir}/cluster_00/head_weights.json" ]; then
     echo "Creating random head masks (true masking)..."
-    python "${ROOT}/preference_head/random_mask_cluster_head_weights.py" \
+    python "preference_head/random_mask_cluster_head_weights.py" \
       --src_dir "${head_dir}" \
       --out_dir "${random_mask_dir}" \
       --seed 1234 \
       --heads_count "${HEAD_COUNT}"
   fi
 
-  mkdir -p "${ROOT}/dps/outputs/hparam/ablation_full/${task_slug}/random_mask"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  mkdir -p "$(pwd)/outputs/hparam/ablation_full/${task_slug}/random_mask"
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \
@@ -210,7 +210,7 @@ PY
     --embeddings_file "${emb_file}" \
     --routing soft \
     --temperature 1.0 \
-    --run_dir "${ROOT}/dps/outputs/hparam/ablation_full/${task_slug}/random_mask"
+    --run_dir "$(pwd)/outputs/hparam/ablation_full/${task_slug}/random_mask"
 done
 
 echo "Ablation runs complete."

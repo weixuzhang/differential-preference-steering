@@ -24,7 +24,7 @@ mkdir -p "${RUN_ROOT}"
 
 echo "Building manifest: ${MANIFEST}"
 TASKS="${TASKS_CSV}" SPLIT="${SPLIT}" \
-  bash "${ROOT}/preference_head/build_cluster_heads_manifest.sh" \
+  bash "preference_head/build_cluster_heads_manifest.sh" \
   "${TARGET_GROUP}" "${CHUNK_SIZE}" "${MANIFEST}"
 
 NUM_HEAD_JOBS="$(wc -l < "${MANIFEST}")"

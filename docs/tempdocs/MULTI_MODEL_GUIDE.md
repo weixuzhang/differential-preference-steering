@@ -68,7 +68,7 @@ For each of 10 tasks:
 
 #### **Step 1: Detect Preference Heads** (~20-24 hours)
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_multi_model.sh
 ```
 
@@ -80,7 +80,7 @@ sbatch run_detection_multi_model.sh
 
 #### **Step 2: Run DPS Experiments** (~24-32 hours)
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_multi_model.sh
 ```
 
@@ -91,7 +91,7 @@ sbatch experiments/run_dps_multi_model.sh
 
 #### **Step 3: Evaluate Results**
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python evaluate_predictions.py
 ```
 
@@ -104,17 +104,17 @@ python evaluate_predictions.py
 #### **LLaMA-3-8B (Original)**
 ```bash
 # Already done for LaMP-1, run remaining tasks
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_all_tasks.sh  # Uses LLaMA-3-8B by default
 
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_all_tasks.sh
 ```
 
 #### **LLaMA-2-7B**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 for task in LaMP-{1,2,3,4,5,7} LongLaMP-{1,2,3,4}; do
   python preference_head_detection.py \
     --model_path meta-llama/Llama-2-7b-chat-hf \
@@ -124,7 +124,7 @@ for task in LaMP-{1,2,3,4,5,7} LongLaMP-{1,2,3,4}; do
 done
 
 # Run experiments
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 for task in lamp_{1,2,3,4,5,7} longlamp_{1,2,3,4}; do
   python scripts/main.py experiment=${task}/dps/llama2_7b_instruct
 done
@@ -133,7 +133,7 @@ done
 #### **Qwen2-7B**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 for task in LaMP-{1,2,3,4,5,7} LongLaMP-{1,2,3,4}; do
   python preference_head_detection.py \
     --model_path Qwen/Qwen2-7B-Instruct \
@@ -143,7 +143,7 @@ for task in LaMP-{1,2,3,4,5,7} LongLaMP-{1,2,3,4}; do
 done
 
 # Run experiments
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 for task in lamp_{1,2,3,4,5,7} longlamp_{1,2,3,4}; do
   python scripts/main.py experiment=${task}/dps/qwen2_7b_instruct
 done
@@ -152,7 +152,7 @@ done
 #### **Mistral-7B**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 for task in LaMP-{1,2,3,4,5,7} LongLaMP-{1,2,3,4}; do
   python preference_head_detection.py \
     --model_path mistralai/Mistral-7B-Instruct-v0.3 \
@@ -162,7 +162,7 @@ for task in LaMP-{1,2,3,4,5,7} LongLaMP-{1,2,3,4}; do
 done
 
 # Run experiments
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 for task in lamp_{1,2,3,4,5,7} longlamp_{1,2,3,4}; do
   python scripts/main.py experiment=${task}/dps/mistral_7b_instruct
 done
@@ -176,7 +176,7 @@ Example for **LaMP-1**:
 
 ```bash
 # Detect heads for all models
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 for model in "meta-llama/Meta-Llama-3-8B-Instruct" \
              "meta-llama/Llama-2-7b-chat-hf" \
              "Qwen/Qwen2-7B-Instruct" \
@@ -188,7 +188,7 @@ for model in "meta-llama/Meta-Llama-3-8B-Instruct" \
 done
 
 # Run DPS for all models
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 for model in llama3_8b_instruct llama2_7b_instruct qwen2_7b_instruct mistral_7b_instruct; do
   python scripts/main.py experiment=lamp_1/dps/${model}
 done
@@ -312,13 +312,13 @@ outputs/
 ### **Check Status**
 ```bash
 # Count detected preference heads
-ls /scratch/weixuz/dps/preference_head/preference_scores/*_top_heads.json | wc -l
+ls results/preference_head/preference_scores/*_top_heads.json | wc -l
 
 # Count prediction files
-ls /scratch/weixuz/dps/outputs/pred_*.json | wc -l
+ls /scratch/weixuz/dps-dev-dev/outputs/pred_*.json | wc -l
 
 # View evaluation summary
-cat /scratch/weixuz/dps/outputs/evaluation_summary.json
+cat /scratch/weixuz/dps-dev-dev/outputs/evaluation_summary.json
 ```
 
 ### **Monitor Progress**
@@ -428,11 +428,11 @@ for task in tasks:
 ### **Quick Start**
 ```bash
 # Full pipeline (2-2.5 days)
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_multi_model.sh
 
 # Wait for completion, then:
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_multi_model.sh
 
 # View results
@@ -442,10 +442,10 @@ python evaluate_predictions.py
 ### **Single Model Quick Start**
 ```bash
 # Just LLaMA-2-7B on all tasks (~11-14 hours)
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 # Run detection for LLaMA-2 (modify run_detection_all_tasks.sh MODEL_PATH)
 
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 # Run experiments with llama2_7b_instruct configs
 ```
 
@@ -468,7 +468,7 @@ You now have the **most comprehensive multi-model DPS evaluation**:
 **Ready to start?**
 
 ```bash
-cd /scratch/weixuz/dps/preference_head && sbatch run_detection_multi_model.sh
+cd /scratch/weixuz/dps-dev-dev/preference_head && sbatch run_detection_multi_model.sh
 ```
 
 **Good luck! 🎓**

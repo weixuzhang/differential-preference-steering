@@ -10,7 +10,7 @@ FileNotFoundError: [Errno 2] No such file or directory: './dataset/LaMP-1/dev_qu
 ```
 
 **Cause:**
-The `load_lamp_dataset()` function (now in `src/lamp_benchmark`) uses relative paths (`./dataset/`) and expects to be run from the `/scratch/weixuz/dps/` directory. When running from `/scratch/weixuz/preference_head/`, it can't find the dataset files.
+The `load_lamp_dataset()` function (now in `src/lamp_benchmark`) uses relative paths (`./dataset/`) and expects to be run from the `/scratch/weixuz/dps-dev-dev/` directory. When running from `/scratch/weixuz/preference_head/`, it can't find the dataset files.
 
 **Solution:**
 The code now automatically changes to the correct directory when loading the dataset:
@@ -19,7 +19,7 @@ The code now automatically changes to the correct directory when loading the dat
 # In preference_head_detection.py and validate_preference_heads.py
 original_cwd = os.getcwd()
 try:
-    os.chdir('/scratch/weixuz/dps')
+    os.chdir('/scratch/weixuz/dps-dev')
     dataset = load_lamp_dataset(task, split='dev')
 finally:
     os.chdir(original_cwd)
@@ -51,13 +51,13 @@ export HF_TOKEN="your_token_here"
 Option 2: Use already cached model:
 ```bash
 # Make sure model is in cache
-ls /scratch/weixuz/dps/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct
+ls /scratch/weixuz/dps-dev-dev/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct
 ```
 
 Option 3: Point to local model:
 ```bash
 python preference_head_detection.py \
-  --model_path /scratch/weixuz/dps/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/...
+  --model_path /scratch/weixuz/dps-dev-dev/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/snapshots/...
 ```
 
 ---
@@ -147,12 +147,12 @@ lamp_benchmark path not in Python path.
 **Solution:**
 The code already handles this:
 ```python
-sys.path.append('/scratch/weixuz/dps')
+sys.path.append('/scratch/weixuz/dps-dev')
 ```
 
 If still failing, verify lamp_benchmark is installed:
 ```bash
-ls /scratch/weixuz/dps/src/lamp_benchmark/
+ls /scratch/weixuz/dps-dev-dev/src/lamp_benchmark/
 # Should show: __init__.py, dataset.py, metric.py, etc.
 ```
 
@@ -210,9 +210,9 @@ python -c "import torch; print(f'PyTorch: {torch.__version__}'); print(f'CUDA: {
 ```bash
 python -c "
 import sys
-sys.path.append('/scratch/weixuz/dps')
+sys.path.append('/scratch/weixuz/dps-dev')
 import os
-os.chdir('/scratch/weixuz/dps')
+os.chdir('/scratch/weixuz/dps-dev')
 from lamp import load_lamp_dataset
 dataset = load_lamp_dataset('LaMP-1', 'dev')
 print(f'Dataset loaded: {len(dataset)} samples')

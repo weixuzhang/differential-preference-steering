@@ -9,7 +9,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories (offline)
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -40,8 +40,8 @@ fi
 GROUP_SIZES=(10 100)
 K_VALUES=(250 25)
 HEAD_DIRS=(
-  "/scratch/weixuz/dps/preference_head/cluster_heads/lamp1_k250_llama3-8b-instruct_quick50"
-  "/scratch/weixuz/dps/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct"
+  "results/preference_head/cluster_heads/lamp1_k250_llama3-8b-instruct_quick50"
+  "results/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct"
 )
 
 echo "========================================="
@@ -56,10 +56,10 @@ for i in "${!GROUP_SIZES[@]}"; do
   k_value="${K_VALUES[$i]}"
   head_dir="${HEAD_DIRS[$i]}"
   head_dir_filled="${head_dir}_filled"
-  cluster_dir="${ROOT}/preference_head/cluster_runs/lamp1_k${k_value}"
+  cluster_dir="results/preference_head/cluster_runs/lamp1_k${k_value}"
   emb_file="${cluster_dir}/embeddings_dev.npy"
   emb_subset="${cluster_dir}/embeddings_dev_n${NUM_SAMPLES}.npy"
-  run_dir="${ROOT}/dps/outputs/hparam/groupsize_quick/g${group_size}"
+  run_dir="$(pwd)/outputs/hparam/groupsize_quick/g${group_size}"
 
   if [ ! -f "${cluster_dir}/clusters.json" ]; then
     echo "Skipping group size ${group_size} (missing ${cluster_dir}/clusters.json)"
@@ -148,7 +148,7 @@ PY
   fi
 
   mkdir -p "${run_dir}"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \

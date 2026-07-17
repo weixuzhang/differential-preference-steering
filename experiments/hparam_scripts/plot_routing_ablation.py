@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 
 import sys
 
-sys.path.append("/scratch/weixuz/dps")
+sys.path.append(str(Path(__file__).resolve().parents[2]))
 from evaluate_predictions import evaluate_predictions
 
 
@@ -42,7 +42,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Plot routing ablation results")
     parser.add_argument(
         "--root_dir",
-        default="/scratch/weixuz/dps/outputs/hparam/routing_ablation",
+        default="outputs/hparam/routing_ablation",
     )
     parser.add_argument(
         "--output_tsv",

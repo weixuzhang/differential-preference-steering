@@ -32,4 +32,4 @@ echo "Target group size: ${TARGET_GROUP}"
 echo "Tasks: ${TASKS_CSV}"
 echo "========================================="
 
-bash "${ROOT}/preference_head/run_cluster_profiles.sh" "${TASKS[@]}"
+bash "preference_head/run_cluster_profiles.sh" "${TASKS[@]}"

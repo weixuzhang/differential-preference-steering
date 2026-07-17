@@ -38,7 +38,7 @@ def test_detection(model_path: str, num_samples: int = 10):
         device="cuda",
         torch_dtype="bfloat16",
         top_percent=0.1,  # Use 10% for testing (more lenient)
-        save_dir="/scratch/weixuz/preference_head/test_preference_scores"
+        save_dir="results/preference_head/test_preference_scores"
     )
     
     # Initialize detector

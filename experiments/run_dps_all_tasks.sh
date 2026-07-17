@@ -12,7 +12,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Set cache directories (same as decore)
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -27,7 +27,7 @@ echo ""
 
 # Check which tasks have preference heads detected
 echo "Checking for detected preference heads..."
-PREF_HEAD_DIR="/scratch/weixuz/dps/preference_head/preference_scores"
+PREF_HEAD_DIR="results/preference_head/preference_scores"
 
 declare -A TASKS_READY
 declare -A LONGLAMP_READY

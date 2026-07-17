@@ -13,10 +13,10 @@
 ⚡ QUICK COMMANDS:
 
 Test CAD/CD (5 min):
-  cd /scratch/weixuz/dps && bash test_cad_cd.sh
+  cd /scratch/weixuz/dps-dev && bash test_cad_cd.sh
 
 Single Task, All Methods (2-3 hours):
-  cd /scratch/weixuz/dps
+  cd /scratch/weixuz/dps-dev
   for method in baseline context_aware_decoding contrastive_decoding decore_entropy dps; do
     python scripts/main.py experiment=lamp_1/${method}/llama3_8b_instruct
   done
@@ -25,7 +25,7 @@ Complete Evaluation (4-5 days):
   cd /scratch/weixuz/preference_head
   sbatch run_detection_multi_model.sh
   
-  cd /scratch/weixuz/dps
+  cd /scratch/weixuz/dps-dev
   sbatch run_all_methods.sh
   
   python evaluate_predictions.py
@@ -73,6 +73,6 @@ Evaluation:       outputs/evaluation_summary.json
 
 ✅ STATUS: READY TO RUN!
 
-Start here: cd /scratch/weixuz/dps && bash test_cad_cd.sh
+Start here: cd /scratch/weixuz/dps-dev && bash test_cad_cd.sh
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

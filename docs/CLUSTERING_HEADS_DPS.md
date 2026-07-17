@@ -76,7 +76,7 @@ Weighted DPS requires embeddings to match the evaluation split length
 (`decore/src/datasets/lamp.py` uses `dev`). Since clustering and evaluation both
 use `dev`, the embeddings align, but we still write `embeddings_dev.npy` for the
 router input. The dev embeddings are expected at
-`/scratch/weixuz/dps/preference_head/cluster_runs/<task>_k<computed_k>/embeddings_dev.npy`.
+`results/preference_head/cluster_runs/<task>_k<computed_k>/embeddings_dev.npy`.
 
 ## Hyperparameter + ablation experiments (LaMP-1, LLaMA3-8B)
 These runs are implemented as single sbatch scripts (no arrays) under
@@ -85,7 +85,7 @@ These runs are implemented as single sbatch scripts (no arrays) under
 ### Head-count sweep (top_percent)
 - Script: `experiments/hparam_scripts/run_llama3_lamp1_heads_sweep.sh`
 - Heads: 10/20/40/80/160; `top_percent = num_heads / 1024`
-- Head dirs: `preference_head/cluster_heads/lamp1_k<K>_llama3-8b-instruct_h<num_heads>`
+- Head dirs: `results/preference_head/cluster_heads/lamp1_k<K>_llama3-8b-instruct_h<num_heads>`
 - Outputs: `outputs/hparam/heads/h<num_heads>`
 
 ### DPS alpha sweep (adaptive vs fixed)

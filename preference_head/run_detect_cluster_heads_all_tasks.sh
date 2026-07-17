@@ -9,7 +9,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Cache directories
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -19,8 +19,8 @@ export HF_OFFLINE=true
 # ---- Config ----
 TARGET_GROUP=100
 MODEL_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
-BASE_CLUSTER="/scratch/weixuz/preference_head/cluster_runs"
-BASE_OUT="/scratch/weixuz/preference_head/cluster_heads"
+BASE_CLUSTER="results/preference_head/cluster_runs"
+BASE_OUT="results/preference_head/cluster_heads"
 
 TASKS=(
   "LaMP-1" "LaMP-2" "LaMP-3" "LaMP-4" "LaMP-5" "LaMP-7"

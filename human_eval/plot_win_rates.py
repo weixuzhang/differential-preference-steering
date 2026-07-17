@@ -15,11 +15,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Plot win/lose/tie bars")
     parser.add_argument(
         "--input",
-        default="/scratch/weixuz/dps/human_eval/LaMP-4_win_rates.json",
+        default="human_eval/LaMP-4_win_rates.json",
     )
     parser.add_argument(
         "--out",
-        default="/scratch/weixuz/dps/human_eval/LaMP-4_win_lose_tie.png",
+        default="human_eval/LaMP-4_win_lose_tie.png",
     )
     parser.add_argument("--title", default="LaMP-4 Human Eval (Win/Lose/Tie)")
     args = parser.parse_args()

@@ -12,7 +12,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -45,16 +45,16 @@ echo "Group sizes: ${GROUP_SIZES[*]}"
 echo "========================================="
 
 for target_group in "${GROUP_SIZES[@]}"; do
-  K=$(python "${ROOT}/preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${target_group}")
+  K=$(python "preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${target_group}")
   if [ -z "${K}" ]; then
     echo "Failed to compute K for ${TASK} (target_group=${target_group})"
     continue
   fi
 
-  cluster_dir="${ROOT}/preference_head/cluster_runs/${task_slug}_k${K}"
-  head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
+  cluster_dir="results/preference_head/cluster_runs/${task_slug}_k${K}"
+  head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
   emb_file="${cluster_dir}/embeddings_dev.npy"
-  run_dir="${ROOT}/dps/outputs/hparam/groupsize/g${target_group}"
+  run_dir="$(pwd)/outputs/hparam/groupsize/g${target_group}"
 
   echo "-----------------------------------------"
   echo "Target group: ${target_group} | k=${K}"
@@ -65,7 +65,7 @@ for target_group in "${GROUP_SIZES[@]}"; do
 
   if [ ! -f "${cluster_dir}/clusters.json" ]; then
     echo "Clustering dev profiles..."
-    python "${ROOT}/preference_head/cluster_profiles.py" \
+    python "preference_head/cluster_profiles.py" \
       --task "${TASK}" \
       --split dev \
       --k "${K}" \
@@ -78,7 +78,7 @@ for target_group in "${GROUP_SIZES[@]}"; do
 
   if [ ! -f "${emb_file}" ]; then
     echo "Building dev embeddings for routing..."
-    python "${ROOT}/preference_head/embed_profiles.py" \
+    python "preference_head/embed_profiles.py" \
       --task "${TASK}" \
       --split dev \
       --output_file "${emb_file}" \
@@ -98,7 +98,7 @@ for target_group in "${GROUP_SIZES[@]}"; do
         if [ "${cluster_end}" -ge "${K}" ]; then
           cluster_end=$((K - 1))
         fi
-        python "${ROOT}/preference_head/detect_cluster_heads.py" \
+        python "preference_head/detect_cluster_heads.py" \
           --cluster_file "${cluster_dir}/clusters.json" \
           --model_path "${MODEL_PATH}" \
           --task "${TASK}" \
@@ -113,7 +113,7 @@ for target_group in "${GROUP_SIZES[@]}"; do
         cluster_start=$((cluster_end + 1))
       done
     else
-      python "${ROOT}/preference_head/detect_cluster_heads.py" \
+      python "preference_head/detect_cluster_heads.py" \
         --cluster_file "${cluster_dir}/clusters.json" \
         --model_path "${MODEL_PATH}" \
         --task "${TASK}" \
@@ -131,7 +131,7 @@ for target_group in "${GROUP_SIZES[@]}"; do
   fi
 
   mkdir -p "${run_dir}"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \

@@ -215,7 +215,7 @@ def main():
                        help="Path to ranked heads JSON file")
     parser.add_argument("--retrieval_file", type=str,
                        help="Optional: Path to retrieval heads file for comparison")
-    parser.add_argument("--output_dir", type=str, default="./visualizations",
+    parser.add_argument("--output_dir", type=str, default="results/preference_head/visualizations",
                        help="Directory to save visualizations")
     
     args = parser.parse_args()

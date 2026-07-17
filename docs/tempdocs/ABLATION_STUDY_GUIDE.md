@@ -69,7 +69,7 @@ For each of 10 tasks:
 Run all 100 experiments:
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_ablation_study.sh
 ```
 
@@ -87,7 +87,7 @@ sbatch experiments/run_ablation_study.sh
 Test all head counts on one task:
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 TASK="lamp_1"
 MODEL="llama3_8b_instruct"
 
@@ -109,7 +109,7 @@ python scripts/analyze_ablation.py
 Test a few head counts with small samples:
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_ablation.sh
 ```
 
@@ -127,7 +127,7 @@ bash experiments/test_ablation.sh
 Test specific head counts on specific tasks:
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 
 # Example: Test 30, 40, 50 heads on LaMP-1 and LaMP-2
 for task in lamp_1 lamp_2; do
@@ -446,19 +446,19 @@ Based on the DPS methodology, we expect:
 
 ### **Run Full Study**
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_ablation_study.sh
 ```
 
 ### **Test First**
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_ablation.sh
 ```
 
 ### **Analyze Results**
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/analyze_ablation.py
 ```
 
@@ -498,7 +498,7 @@ cat outputs/ablation_analysis.json | jq '.optimal_per_task'
 **Ready to start?**
 
 ```bash
-cd /scratch/weixuz/dps && bash experiments/test_ablation.sh
+cd /scratch/weixuz/dps-dev && bash experiments/test_ablation.sh
 ```
 
 **Good luck! 🎓**

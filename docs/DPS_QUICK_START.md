@@ -10,19 +10,19 @@
 
 ### 1. ✅ Preference heads already detected for LaMP-1!
 
-Located at: `/scratch/weixuz/dps/preference_head/preference_scores/Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json`
+Located at: `results/preference_head/preference_scores/Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json`
 
 ### 2. Test DPS (5 samples, ~2 minutes)
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_dps.sh
 ```
 
 ### 3. Run full experiment (SLURM, ~30 minutes)
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps.sh
 ```
 
@@ -31,23 +31,23 @@ sbatch experiments/run_dps.sh
 ## What files were created?
 
 ### Core DPS Implementation
-- `/scratch/weixuz/dps/src/models/dps.py` - DPS decoder
-- `/scratch/weixuz/dps/src/models/__init__.py` - Updated to import DPS
+- `/scratch/weixuz/dps-dev-dev/src/models/dps.py` - DPS decoder
+- `/scratch/weixuz/dps-dev-dev/src/models/__init__.py` - Updated to import DPS
 
 ### Configuration Files
-- `/scratch/weixuz/dps/configs/decoder/dps.yaml` - Base DPS config
-- `/scratch/weixuz/dps/configs/experiment/lamp_1/dps/llama3_8b_instruct.yaml` - LaMP-1 config
-- `/scratch/weixuz/dps/configs/experiment/lamp_2/dps/llama3_8b_instruct.yaml` - LaMP-2 config
-- `/scratch/weixuz/dps/configs/experiment/lamp_3/dps/llama3_8b_instruct.yaml` - LaMP-3 config
-- `/scratch/weixuz/dps/configs/experiment/lamp_4/dps/llama3_8b_instruct.yaml` - LaMP-4 config
+- `/scratch/weixuz/dps-dev-dev/configs/decoder/dps.yaml` - Base DPS config
+- `/scratch/weixuz/dps-dev-dev/configs/experiment/lamp_1/dps/llama3_8b_instruct.yaml` - LaMP-1 config
+- `/scratch/weixuz/dps-dev-dev/configs/experiment/lamp_2/dps/llama3_8b_instruct.yaml` - LaMP-2 config
+- `/scratch/weixuz/dps-dev-dev/configs/experiment/lamp_3/dps/llama3_8b_instruct.yaml` - LaMP-3 config
+- `/scratch/weixuz/dps-dev-dev/configs/experiment/lamp_4/dps/llama3_8b_instruct.yaml` - LaMP-4 config
 
 ### Scripts
-- `/scratch/weixuz/dps/test_dps.sh` - Quick test script
-- `/scratch/weixuz/dps/run_dps.sh` - Full experiment script (SLURM)
+- `/scratch/weixuz/dps-dev-dev/test_dps.sh` - Quick test script
+- `/scratch/weixuz/dps-dev-dev/run_dps.sh` - Full experiment script (SLURM)
 
 ### Documentation
-- `/scratch/weixuz/dps/DPS_INTEGRATION.md` - Comprehensive documentation
-- `/scratch/weixuz/dps/DPS_QUICK_START.md` - This file
+- `/scratch/weixuz/dps-dev-dev/DPS_INTEGRATION.md` - Comprehensive documentation
+- `/scratch/weixuz/dps-dev-dev/DPS_QUICK_START.md` - This file
 
 ---
 
@@ -62,14 +62,14 @@ python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct
 
 **Step 1**: Detect preference heads for the task
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 # Edit run_detection.sh: uncomment the LaMP-2/3/4 section
 sbatch run_detection.sh
 ```
 
 **Step 2**: Run DPS experiment
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_2/dps/llama3_8b_instruct
 ```
 
@@ -128,13 +128,13 @@ python evaluate_predictions.py
 ### "Preference heads file not found"
 You need to detect preference heads first:
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-X
 ```
 
 ### Check if preference heads exist
 ```bash
-ls -lh /scratch/weixuz/dps/preference_head/preference_scores/
+ls -lh results/preference_head/preference_scores/
 ```
 
 Should see: `Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json`
@@ -145,12 +145,12 @@ Should see: `Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json`
 
 | File Type | Location |
 |-----------|----------|
-| Preference Heads | `/scratch/weixuz/dps/preference_head/preference_scores/` |
-| DPS Decoder | `/scratch/weixuz/dps/src/models/dps.py` |
-| DPS Configs | `/scratch/weixuz/dps/configs/experiment/lamp_*/dps/` |
-| Test Script | `/scratch/weixuz/dps/test_dps.sh` |
-| Run Script | `/scratch/weixuz/dps/run_dps.sh` |
-| Output | `/scratch/weixuz/dps/outputs/` |
+| Preference Heads | `results/preference_head/preference_scores/` |
+| DPS Decoder | `/scratch/weixuz/dps-dev-dev/src/models/dps.py` |
+| DPS Configs | `/scratch/weixuz/dps-dev-dev/configs/experiment/lamp_*/dps/` |
+| Test Script | `/scratch/weixuz/dps-dev-dev/test_dps.sh` |
+| Run Script | `/scratch/weixuz/dps-dev-dev/run_dps.sh` |
+| Output | `/scratch/weixuz/dps-dev-dev/outputs/` |
 
 ---
 
@@ -169,14 +169,14 @@ Should see: `Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json`
 
 1. **Test on LaMP-1**: `bash experiments/test_dps.sh`
 2. **Run full LaMP-1 experiment**: `sbatch experiments/run_dps.sh`
-3. **Detect heads for other tasks**: Edit `/scratch/weixuz/dps/preference_head/run_detection.sh`
+3. **Detect heads for other tasks**: Edit `/scratch/weixuz/dps-dev-dev/preference_head/run_detection.sh`
 4. **Compare with baselines**: Run baseline + DeCoRe + DPS
 
 ---
 
 ## Full Documentation
 
-See `/scratch/weixuz/dps/DPS_INTEGRATION.md` for:
+See `/scratch/weixuz/dps-dev-dev/DPS_INTEGRATION.md` for:
 - Architecture details
 - Parameter tuning guide
 - Advanced usage examples
@@ -191,5 +191,5 @@ Check these files:
 - `DPS_INTEGRATION.md` - Full documentation
 - `src/models/dps.py` - Implementation
 - `configs/decoder/dps.yaml` - Configuration
-- `/scratch/weixuz/dps/preference_head/preference_head.md` - Detection methodology
+- `/scratch/weixuz/dps-dev-dev/preference_head/preference_head.md` - Detection methodology
 

@@ -15,7 +15,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories (offline)
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -55,7 +55,7 @@ import os
 
 task_slug = "${task_slug}"
 target_group = int("${TARGET_GROUP}")
-base = "/scratch/weixuz/dps/preference_head/cluster_runs"
+base = "results/preference_head/cluster_runs"
 cands = glob.glob(os.path.join(base, f"{task_slug}_k*"))
 best = None
 best_score = None
@@ -95,7 +95,7 @@ PY
   fi
 
   emb_file="${cluster_dir}/embeddings_dev.npy"
-  head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
+  head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
   head_dir_filled="${head_dir}_filled"
   emb_subset="${cluster_dir}/embeddings_dev_n${NUM_SAMPLES}.npy"
 
@@ -189,11 +189,11 @@ PY
   echo "Embeddings: ${emb_subset}"
   echo "-----------------------------------------"
 
-  run_dir_soft="${ROOT}/dps/outputs/hparam/routing_ablation/${task_slug}/soft"
-  run_dir_hard="${ROOT}/dps/outputs/hparam/routing_ablation/${task_slug}/hard"
+  run_dir_soft="$(pwd)/outputs/hparam/routing_ablation/${task_slug}/soft"
+  run_dir_hard="$(pwd)/outputs/hparam/routing_ablation/${task_slug}/hard"
   mkdir -p "${run_dir_soft}" "${run_dir_hard}"
 
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \
@@ -206,7 +206,7 @@ PY
     --num_samples "${NUM_SAMPLES}" \
     --run_dir "${run_dir_soft}"
 
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \

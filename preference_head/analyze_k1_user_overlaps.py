@@ -174,7 +174,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--output_dir",
-        default="./visualizations/k1_users",
+        default="results/preference_head/visualizations/k1_users",
         help="Output directory",
     )
     parser.add_argument(

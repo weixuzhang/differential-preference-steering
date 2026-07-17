@@ -122,7 +122,7 @@ max_prompt_length: 2048
 ### Test on Single Sample First
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python -c "
 import sys
 sys.path.append('.')
@@ -223,7 +223,7 @@ pip install rank-bm25==0.2.2
 
 **Solution:** Will auto-download on first run. Ensure internet access or:
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python -c "from transformers import AutoModel; AutoModel.from_pretrained('facebook/contriever')"
 ```
 

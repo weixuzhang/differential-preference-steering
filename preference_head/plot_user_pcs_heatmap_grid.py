@@ -149,7 +149,7 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=123, help="Random seed.")
     parser.add_argument(
         "--output_dir",
-        default="./visualizations/k1_users_10",
+        default="results/preference_head/visualizations/k1_users_10",
         help="Output directory.",
     )
     parser.add_argument(

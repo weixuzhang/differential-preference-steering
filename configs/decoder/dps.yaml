@@ -4,7 +4,7 @@ defaults:
 name: DPS
 method: DPS
 configs:
-  preference_heads_dir: preference_head/preference_scores/
+  preference_heads_dir: results/preference_head/preference_scores/
   num_preference_heads: 40
   task: LaMP-1  # Will be overridden by data config
   post_softmax: True

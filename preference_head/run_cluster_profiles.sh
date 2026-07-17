@@ -9,7 +9,7 @@ source "${ENV_SETUP}"
 TARGET_GROUP="${TARGET_GROUP:-100}"
 SPLIT="${SPLIT:-dev}"
 EMB_MODEL="${EMB_MODEL:-sentence-transformers/all-MiniLM-L6-v2}"
-BASE_OUT="${BASE_OUT:-${DPS_ROOT}/preference_head/cluster_runs}"
+BASE_OUT="${BASE_OUT:-${DPS_ROOT}/results/preference_head/cluster_runs}"
 
 if [[ $# -gt 0 ]]; then
   TASKS=("$@")

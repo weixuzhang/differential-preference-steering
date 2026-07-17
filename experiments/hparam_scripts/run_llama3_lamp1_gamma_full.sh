@@ -10,7 +10,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -43,7 +43,7 @@ import os
 
 task_slug = "${task_slug}"
 target_group = int("${TARGET_GROUP}")
-base = "/scratch/weixuz/dps/preference_head/cluster_runs"
+base = "results/preference_head/cluster_runs"
 cands = glob.glob(os.path.join(base, f"{task_slug}_k*"))
 best = None
 best_score = None
@@ -84,7 +84,7 @@ PY
 
   model_slug=$(echo "${MODEL_NAME}" | tr "[:upper:]" "[:lower:]" | tr -c "a-z0-9" "-" | sed "s/--*/-/g" | sed "s/^-//;s/-$//")
   emb_file="${cluster_dir}/embeddings_dev.npy"
-  head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
+  head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
 
   if [ ! -f "${cluster_dir}/clusters.json" ]; then
     echo "Missing ${cluster_dir}/clusters.json, skipping ${TASK}."
@@ -166,8 +166,8 @@ PY
   echo "Heads: ${head_dir}"
   echo "========================================="
 
-  mkdir -p "${ROOT}/dps/outputs/hparam/gamma_full/${task_slug}/adaptive"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  mkdir -p "$(pwd)/outputs/hparam/gamma_full/${task_slug}/adaptive"
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \
@@ -178,10 +178,10 @@ PY
     --routing soft \
     --temperature 1.0 \
     --scale_alpha \
-    --run_dir "${ROOT}/dps/outputs/hparam/gamma_full/${task_slug}/adaptive"
+    --run_dir "$(pwd)/outputs/hparam/gamma_full/${task_slug}/adaptive"
 
-  mkdir -p "${ROOT}/dps/outputs/hparam/gamma_full/${task_slug}/fixed_alpha_${FIXED_ALPHA}"
-  python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+  mkdir -p "$(pwd)/outputs/hparam/gamma_full/${task_slug}/fixed_alpha_${FIXED_ALPHA}"
+  python "$(pwd)/scripts/run_weighted_dps.py" \
     --task "${TASK_DECODER}" \
     --model_path "${MODEL_PATH}" \
     --model_name "${MODEL_NAME}" \
@@ -192,7 +192,7 @@ PY
     --routing soft \
     --temperature 1.0 \
     --alpha "${FIXED_ALPHA}" \
-    --run_dir "${ROOT}/dps/outputs/hparam/gamma_full/${task_slug}/fixed_alpha_${FIXED_ALPHA}"
+    --run_dir "$(pwd)/outputs/hparam/gamma_full/${task_slug}/fixed_alpha_${FIXED_ALPHA}"
 done
 
 echo "Gamma sweep complete."

@@ -59,7 +59,7 @@ class PreferenceHeadConfig:
     max_new_tokens: int = 32
     temperature: float = 0.7
     top_k: int = 1  # Top-k heads to track per generation step
-    save_dir: str = "./preference_scores"
+    save_dir: str = "results/preference_head/preference_scores"
     
     # Scoring method
     score_method: str = "nll"  # "nll" (negative log-likelihood) or "style" (style similarity)
@@ -504,7 +504,7 @@ def main():
     # Detection arguments
     parser.add_argument("--top_percent", type=float, default=0.04,
                        help="Percentage of top heads to select (default: 0.04 = 4%%)")
-    parser.add_argument("--save_dir", type=str, default="./preference_scores",
+    parser.add_argument("--save_dir", type=str, default="results/preference_head/preference_scores",
                        help="Directory to save results")
     
     # Generation arguments

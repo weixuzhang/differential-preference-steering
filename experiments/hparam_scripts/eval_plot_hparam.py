@@ -4,7 +4,7 @@ Evaluate hparam sweep predictions and (optionally) plot a metric.
 
 Example:
   python experiments/hparam_scripts/eval_plot_hparam.py \
-    --root_dir /scratch/weixuz/dps/outputs/hparam/heads_quick \
+    --root_dir outputs/hparam/heads_quick \
     --metric accuracy
 """
 
@@ -16,7 +16,7 @@ from typing import Dict, List
 
 import sys
 
-sys.path.append("/scratch/weixuz/dps")
+sys.path.append(str(Path(__file__).resolve().parents[2]))
 from evaluate_predictions import evaluate_predictions
 
 

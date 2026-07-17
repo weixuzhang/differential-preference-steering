@@ -96,7 +96,7 @@ defaults:
 name: DPS
 method: DPS
 configs:
-  preference_heads_dir: /scratch/weixuz/dps/preference_head/preference_scores/
+  preference_heads_dir: results/preference_head/preference_scores/
   num_preference_heads: 40      # Number of preference heads to use
   task: LaMP-1                  # Overridden by experiment config
   post_softmax: True
@@ -131,7 +131,7 @@ model:
 
 ```bash
 # For LaMP-1
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection.sh
 
 # For other tasks, edit run_detection.sh and uncomment the desired task
@@ -144,7 +144,7 @@ sbatch run_detection.sh
 ### 2. Quick Test (5 samples)
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_dps.sh
 ```
 
@@ -159,14 +159,14 @@ Loaded 40 preference heads (requested 40)
 ### 3. Full Experiment
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps.sh
 ```
 
 ### 4. Manual Command
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 source /scratch/weixuz/envs/decore/bin/activate
 
 python scripts/main.py \
@@ -266,7 +266,7 @@ python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct \
 
 **Solution**:
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-1 --num_samples 400
 ```
 
@@ -323,7 +323,7 @@ python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct \
 ### 1. Detect Preference Heads for New Task
 
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py \
   --model_path meta-llama/Meta-Llama-3-8B-Instruct \
   --task LaMP-2 \
@@ -417,9 +417,9 @@ If you use DPS in your research, please cite:
 ## Contact
 
 For questions or issues:
-- Check `/scratch/weixuz/dps/preference_head/TROUBLESHOOTING.md`
-- Review DPS code: `/scratch/weixuz/dps/src/models/dps.py`
-- Compare with DeCoRe: `/scratch/weixuz/dps/src/models/decore_entropy.py`
+- Check `/scratch/weixuz/dps-dev-dev/preference_head/TROUBLESHOOTING.md`
+- Review DPS code: `/scratch/weixuz/dps-dev-dev/src/models/dps.py`
+- Compare with DeCoRe: `/scratch/weixuz/dps-dev-dev/src/models/decore_entropy.py`
 
 ---
 
@@ -427,23 +427,23 @@ For questions or issues:
 
 ```bash
 # Detect preference heads
-cd /scratch/weixuz/dps/preference_head && sbatch run_detection.sh
+cd /scratch/weixuz/dps-dev-dev/preference_head && sbatch run_detection.sh
 
 # Test DPS
-cd /scratch/weixuz/dps && bash experiments/test_dps.sh
+cd /scratch/weixuz/dps-dev && bash experiments/test_dps.sh
 
 # Run full experiment
-cd /scratch/weixuz/dps && sbatch experiments/run_dps.sh
+cd /scratch/weixuz/dps-dev && sbatch experiments/run_dps.sh
 
 # Evaluate results
-cd /scratch/weixuz/dps && python evaluate_predictions.py
+cd /scratch/weixuz/dps-dev && python evaluate_predictions.py
 ```
 
 **Key Files**:
-- Detection: `/scratch/weixuz/dps/preference_head/preference_head_detection.py`
-- Decoder: `/scratch/weixuz/dps/src/models/dps.py`
-- Config: `/scratch/weixuz/dps/configs/decoder/dps.yaml`
-- Results: `/scratch/weixuz/dps/preference_head/preference_scores/*.json`
+- Detection: `/scratch/weixuz/dps-dev-dev/preference_head/preference_head_detection.py`
+- Decoder: `/scratch/weixuz/dps-dev-dev/src/models/dps.py`
+- Config: `/scratch/weixuz/dps-dev-dev/configs/decoder/dps.yaml`
+- Results: `results/preference_head/preference_scores/*.json`
 
 ---
 

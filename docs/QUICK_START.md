@@ -5,7 +5,7 @@
 LAMP dataset now uses RAG to avoid OOM. Run this to test:
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python test_lamp_rag_integration.py
 ```
 

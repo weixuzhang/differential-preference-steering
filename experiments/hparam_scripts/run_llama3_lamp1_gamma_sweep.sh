@@ -12,7 +12,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -32,16 +32,16 @@ MODEL_NAME="LLaMA3-8b-Instruct"
 NUM_SAMPLES=100
 FIXED_ALPHA=0.5
 
-K=$(python "${ROOT}/preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${TARGET_GROUP}")
+K=$(python "preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${TARGET_GROUP}")
 if [ -z "${K}" ]; then
   echo "Failed to compute K for ${TASK}"
   exit 1
 fi
 
 task_slug=$(echo "${TASK}" | tr '[:upper:]' '[:lower:]' | tr -d '-')
-cluster_dir="${ROOT}/preference_head/cluster_runs/${task_slug}_k${K}"
+cluster_dir="results/preference_head/cluster_runs/${task_slug}_k${K}"
 model_slug=$(echo "${MODEL_NAME}" | tr "[:upper:]" "[:lower:]" | tr -c "a-z0-9" "-" | sed "s/--*/-/g" | sed "s/^-//;s/-$//")
-head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
+head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
 emb_file="${cluster_dir}/embeddings_dev.npy"
 top_percent=$(python -c "print(40/1024)")
 
@@ -54,7 +54,7 @@ echo "========================================="
 
 if [ ! -f "${cluster_dir}/clusters.json" ]; then
   echo "[1/3] Clustering dev profiles..."
-  python "${ROOT}/preference_head/cluster_profiles.py" \
+  python "preference_head/cluster_profiles.py" \
     --task "${TASK}" \
     --split dev \
     --k "${K}" \
@@ -67,7 +67,7 @@ fi
 
 if [ ! -f "${emb_file}" ]; then
   echo "[2/3] Building dev embeddings for routing..."
-  python "${ROOT}/preference_head/embed_profiles.py" \
+  python "preference_head/embed_profiles.py" \
     --task "${TASK}" \
     --split dev \
     --output_file "${emb_file}" \
@@ -79,7 +79,7 @@ fi
 
 if [ ! -f "${head_dir}/cluster_00/head_weights.json" ]; then
   echo "[3/3] Detecting cluster heads (40 heads)..."
-  python "${ROOT}/preference_head/detect_cluster_heads.py" \
+  python "preference_head/detect_cluster_heads.py" \
     --cluster_file "${cluster_dir}/clusters.json" \
     --model_path "${MODEL_PATH}" \
     --task "${TASK}" \
@@ -96,8 +96,8 @@ else
 fi
 
 echo "Running weighted DPS with adaptive alpha (entropy)..."
-mkdir -p "${ROOT}/dps/outputs/hparam/gamma/adaptive"
-python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+mkdir -p "$(pwd)/outputs/hparam/gamma/adaptive"
+python "$(pwd)/scripts/run_weighted_dps.py" \
   --task "${TASK_DECODER}" \
   --model_path "${MODEL_PATH}" \
   --model_name "${MODEL_NAME}" \
@@ -108,11 +108,11 @@ python "${ROOT}/dps/scripts/run_weighted_dps.py" \
   --routing soft \
   --temperature 1.0 \
   --scale_alpha \
-  --run_dir "${ROOT}/dps/outputs/hparam/gamma/adaptive"
+  --run_dir "$(pwd)/outputs/hparam/gamma/adaptive"
 
 echo "Running weighted DPS with fixed alpha (${FIXED_ALPHA})..."
-mkdir -p "${ROOT}/dps/outputs/hparam/gamma/fixed_alpha_${FIXED_ALPHA}"
-python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+mkdir -p "$(pwd)/outputs/hparam/gamma/fixed_alpha_${FIXED_ALPHA}"
+python "$(pwd)/scripts/run_weighted_dps.py" \
   --task "${TASK_DECODER}" \
   --model_path "${MODEL_PATH}" \
   --model_name "${MODEL_NAME}" \
@@ -123,4 +123,4 @@ python "${ROOT}/dps/scripts/run_weighted_dps.py" \
   --routing soft \
   --temperature 1.0 \
   --alpha "${FIXED_ALPHA}" \
-  --run_dir "${ROOT}/dps/outputs/hparam/gamma/fixed_alpha_${FIXED_ALPHA}"
+  --run_dir "$(pwd)/outputs/hparam/gamma/fixed_alpha_${FIXED_ALPHA}"

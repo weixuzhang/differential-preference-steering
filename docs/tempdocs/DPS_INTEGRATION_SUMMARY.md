@@ -26,7 +26,7 @@ DPS is a personalization method that:
 
 ### 1. Core Implementation
 ```
-/scratch/weixuz/dps/src/models/
+/scratch/weixuz/dps-dev-dev/src/models/
 └── dps.py                              # DPS decoder (300+ lines)
     ├── Class: DPS
     ├── _load_preference_heads()        # Load detected heads
@@ -37,7 +37,7 @@ DPS is a personalization method that:
 
 **Updated**:
 ```
-/scratch/weixuz/dps/src/models/__init__.py
+/scratch/weixuz/dps-dev-dev/src/models/__init__.py
 └── Added: from .dps import DPS
 ```
 
@@ -45,8 +45,8 @@ DPS is a personalization method that:
 
 **Base decoder config**:
 ```yaml
-/scratch/weixuz/dps/configs/decoder/dps.yaml
-├── preference_heads_dir: /scratch/weixuz/dps/preference_head/preference_scores/
+/scratch/weixuz/dps-dev-dev/configs/decoder/dps.yaml
+├── preference_heads_dir: results/preference_head/preference_scores/
 ├── num_preference_heads: 40
 ├── task: LaMP-1 (overridden by experiment)
 ├── alpha_cap: null
@@ -55,7 +55,7 @@ DPS is a personalization method that:
 
 **Experiment configs** (4 files):
 ```
-/scratch/weixuz/dps/configs/experiment/
+/scratch/weixuz/dps-dev-dev/configs/experiment/
 ├── lamp_1/dps/llama3_8b_instruct.yaml  # Citation (32 tokens)
 ├── lamp_2/dps/llama3_8b_instruct.yaml  # Tagging (32 tokens)
 ├── lamp_3/dps/llama3_8b_instruct.yaml  # Scoring (128 tokens)
@@ -66,20 +66,20 @@ DPS is a personalization method that:
 
 **Test script** (quick validation):
 ```bash
-/scratch/weixuz/dps/test_dps.sh
+/scratch/weixuz/dps-dev-dev/test_dps.sh
 └── Runs 5 samples on LaMP-1 (~2 minutes)
 ```
 
 **Run script** (full experiments):
 ```bash
-/scratch/weixuz/dps/run_dps.sh
+/scratch/weixuz/dps-dev-dev/run_dps.sh
 └── SLURM batch job for all LaMP tasks
 ```
 
 ### 4. Documentation
 
 ```
-/scratch/weixuz/dps/
+/scratch/weixuz/dps-dev-dev/
 ├── DPS_INTEGRATION.md        # Comprehensive guide (500+ lines)
 │   ├── Architecture
 │   ├── Configuration
@@ -97,12 +97,12 @@ DPS is a personalization method that:
 
 ### 5. Path Configuration
 
-**Updated** `/scratch/weixuz/dps/preference_head/run_detection.sh`:
-- Fixed cache path: `/scratch/weixuz/dps/.cache/huggingface`
-- Fixed output path: `/scratch/weixuz/dps/preference_head/preference_scores/`
+**Updated** `/scratch/weixuz/dps-dev-dev/preference_head/run_detection.sh`:
+- Fixed cache path: `/scratch/weixuz/dps-dev-dev/.cache/huggingface`
+- Fixed output path: `results/preference_head/preference_scores/`
 - Removed unnecessary HF token
 
-**Created** `/scratch/weixuz/dps/preference_head/PATH_CONFIGURATION.md`:
+**Created** `/scratch/weixuz/dps-dev-dev/preference_head/PATH_CONFIGURATION.md`:
 - Comprehensive path documentation
 - Cache sharing strategy
 - Troubleshooting guide
@@ -113,7 +113,7 @@ DPS is a personalization method that:
 
 ### 1. Preference Head Detection (Done ✅)
 
-**Location**: `/scratch/weixuz/dps/preference_head/preference_scores/Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json`
+**Location**: `results/preference_head/preference_scores/Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json`
 
 **Top Preference Heads for LaMP-1**:
 ```
@@ -177,7 +177,7 @@ python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct
 ### Quick Test (Recommended First Step)
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 bash experiments/test_dps.sh
 ```
 
@@ -192,7 +192,7 @@ Loaded 40 preference heads (requested 40)
 ### Full Experiment
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps.sh
 ```
 
@@ -280,12 +280,12 @@ decoder.configs.alpha_cap=3.0
 
 1. **Test DPS**:
    ```bash
-   cd /scratch/weixuz/dps && bash experiments/test_dps.sh
+   cd /scratch/weixuz/dps-dev && bash experiments/test_dps.sh
    ```
 
 2. **Run full experiment**:
    ```bash
-   cd /scratch/weixuz/dps && sbatch experiments/run_dps.sh
+   cd /scratch/weixuz/dps-dev && sbatch experiments/run_dps.sh
    ```
 
 3. **Compare with baselines**:
@@ -298,14 +298,14 @@ decoder.configs.alpha_cap=3.0
 
 **Detect preference heads**:
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 # Edit run_detection.sh: uncomment LaMP-2/3/4 sections
 sbatch run_detection.sh
 ```
 
 **Then run DPS**:
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_2/dps/llama3_8b_instruct
 ```
 
@@ -387,14 +387,14 @@ python scripts/main.py experiment=lamp_2/dps/llama3_8b_instruct
 
 | Purpose | File Path |
 |---------|-----------|
-| **Preference Heads** | `/scratch/weixuz/dps/preference_head/preference_scores/Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json` |
-| **DPS Decoder** | `/scratch/weixuz/dps/src/models/dps.py` |
-| **DPS Config** | `/scratch/weixuz/dps/configs/decoder/dps.yaml` |
-| **LaMP-1 Config** | `/scratch/weixuz/dps/configs/experiment/lamp_1/dps/llama3_8b_instruct.yaml` |
-| **Test Script** | `/scratch/weixuz/dps/test_dps.sh` |
-| **Run Script** | `/scratch/weixuz/dps/run_dps.sh` |
-| **Full Docs** | `/scratch/weixuz/dps/DPS_INTEGRATION.md` |
-| **Quick Start** | `/scratch/weixuz/dps/DPS_QUICK_START.md` |
+| **Preference Heads** | `results/preference_head/preference_scores/Meta-Llama-3-8B-Instruct_LaMP_1_top_heads.json` |
+| **DPS Decoder** | `/scratch/weixuz/dps-dev-dev/src/models/dps.py` |
+| **DPS Config** | `/scratch/weixuz/dps-dev-dev/configs/decoder/dps.yaml` |
+| **LaMP-1 Config** | `/scratch/weixuz/dps-dev-dev/configs/experiment/lamp_1/dps/llama3_8b_instruct.yaml` |
+| **Test Script** | `/scratch/weixuz/dps-dev-dev/test_dps.sh` |
+| **Run Script** | `/scratch/weixuz/dps-dev-dev/run_dps.sh` |
+| **Full Docs** | `/scratch/weixuz/dps-dev-dev/DPS_INTEGRATION.md` |
+| **Quick Start** | `/scratch/weixuz/dps-dev-dev/DPS_QUICK_START.md` |
 
 ---
 
@@ -444,21 +444,21 @@ python scripts/main.py experiment=lamp_2/dps/llama3_8b_instruct
 
 ```bash
 # Quick test (2 minutes)
-cd /scratch/weixuz/dps && bash experiments/test_dps.sh
+cd /scratch/weixuz/dps-dev && bash experiments/test_dps.sh
 
 # Full experiment (30 minutes)
-cd /scratch/weixuz/dps && sbatch experiments/run_dps.sh
+cd /scratch/weixuz/dps-dev && sbatch experiments/run_dps.sh
 
 # Manual run
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_1/dps/llama3_8b_instruct
 
 # Detect heads for other tasks
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-2
 
 # Evaluate results
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python evaluate_predictions.py
 ```
 
@@ -466,10 +466,10 @@ python evaluate_predictions.py
 
 ## Support
 
-- **Full Documentation**: `/scratch/weixuz/dps/DPS_INTEGRATION.md`
-- **Quick Reference**: `/scratch/weixuz/dps/DPS_QUICK_START.md`
-- **Path Guide**: `/scratch/weixuz/dps/preference_head/PATH_CONFIGURATION.md`
-- **Detection Guide**: `/scratch/weixuz/dps/preference_head/README.md`
+- **Full Documentation**: `/scratch/weixuz/dps-dev-dev/DPS_INTEGRATION.md`
+- **Quick Reference**: `/scratch/weixuz/dps-dev-dev/DPS_QUICK_START.md`
+- **Path Guide**: `/scratch/weixuz/dps-dev-dev/preference_head/PATH_CONFIGURATION.md`
+- **Detection Guide**: `/scratch/weixuz/dps-dev-dev/preference_head/README.md`
 
 ---
 

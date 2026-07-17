@@ -12,7 +12,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Set cache directories
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -40,7 +40,7 @@ TASK_DISPLAY=("LaMP-1" "LaMP-2" "LaMP-3" "LaMP-4" "LaMP-5" "LaMP-7" "LongLaMP-1"
 METHODS=("baseline" "context_aware_decoding" "contrastive_decoding" "decore_entropy" "dps")
 METHOD_DISPLAY=("Baseline" "CAD" "CD" "DeCoRe" "DPS")
 
-PREF_HEAD_DIR="/scratch/weixuz/dps/preference_head/preference_scores"
+PREF_HEAD_DIR="results/preference_head/preference_scores"
 
 # Statistics
 total_experiments=0

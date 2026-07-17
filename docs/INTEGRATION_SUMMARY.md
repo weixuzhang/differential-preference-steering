@@ -81,7 +81,7 @@ DeCoRe inference (~44 GB memory)
 ### Test the Integration
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python test_lamp_rag_integration.py
 ```
 

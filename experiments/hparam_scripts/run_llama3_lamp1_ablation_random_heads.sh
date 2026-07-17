@@ -12,7 +12,7 @@ ROOT="/scratch/weixuz"
 source "${ROOT}/envs/decore/bin/activate"
 
 # Cache directories
-hf_cache="${ROOT}/dps/.cache/huggingface"
+hf_cache="$(pwd)/.cache/huggingface"
 mkdir -p "${hf_cache}"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -33,16 +33,16 @@ NUM_SAMPLES=100
 TOP_PERCENT=$(python -c "print(40/1024)")
 RANDOM_SEED=1234
 
-K=$(python "${ROOT}/preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${TARGET_GROUP}")
+K=$(python "preference_head/compute_k.py" --task "${TASK}" --split dev --target_group "${TARGET_GROUP}")
 if [ -z "${K}" ]; then
   echo "Failed to compute K for ${TASK}"
   exit 1
 fi
 
 task_slug=$(echo "${TASK}" | tr '[:upper:]' '[:lower:]' | tr -d '-')
-cluster_dir="${ROOT}/preference_head/cluster_runs/${task_slug}_k${K}"
+cluster_dir="results/preference_head/cluster_runs/${task_slug}_k${K}"
 model_slug=$(echo "${MODEL_NAME}" | tr "[:upper:]" "[:lower:]" | tr -c "a-z0-9" "-" | sed "s/--*/-/g" | sed "s/^-//;s/-$//")
-head_dir="${ROOT}/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
+head_dir="results/preference_head/cluster_heads/${task_slug}_k${K}_${model_slug}"
 emb_file="${cluster_dir}/embeddings_dev.npy"
 random_head_dir="${head_dir}_random"
 random_mask_dir="${head_dir}_random_mask"
@@ -58,7 +58,7 @@ echo "========================================="
 
 if [ ! -f "${cluster_dir}/clusters.json" ]; then
   echo "[1/3] Clustering dev profiles..."
-  python "${ROOT}/preference_head/cluster_profiles.py" \
+  python "preference_head/cluster_profiles.py" \
     --task "${TASK}" \
     --split dev \
     --k "${K}" \
@@ -71,7 +71,7 @@ fi
 
 if [ ! -f "${emb_file}" ]; then
   echo "[2/3] Building dev embeddings for routing..."
-  python "${ROOT}/preference_head/embed_profiles.py" \
+  python "preference_head/embed_profiles.py" \
     --task "${TASK}" \
     --split dev \
     --output_file "${emb_file}" \
@@ -83,7 +83,7 @@ fi
 
 if [ ! -f "${head_dir}/cluster_00/head_weights.json" ]; then
   echo "[3/3] Detecting cluster heads..."
-  python "${ROOT}/preference_head/detect_cluster_heads.py" \
+  python "preference_head/detect_cluster_heads.py" \
     --cluster_file "${cluster_dir}/clusters.json" \
     --model_path "${MODEL_PATH}" \
     --task "${TASK}" \
@@ -100,27 +100,27 @@ else
 fi
 
 echo "Aggregating cluster heads for validation..."
-python "${ROOT}/preference_head/aggregate_cluster_heads.py" \
+python "preference_head/aggregate_cluster_heads.py" \
   --cluster_heads_dir "${head_dir}" \
   --top_percent "${TOP_PERCENT}" \
   --output_file "${agg_heads}"
 
 echo "Validating head quality (global aggregation)..."
-python "${ROOT}/preference_head/validate_preference_heads.py" \
+python "preference_head/validate_preference_heads.py" \
   --model_path "${MODEL_PATH}" \
   --preference_heads_file "${agg_heads}" \
   --task "${TASK}" \
   --num_samples "${NUM_SAMPLES}"
 
 echo "Creating randomized head weights..."
-python "${ROOT}/preference_head/randomize_cluster_head_weights.py" \
+python "preference_head/randomize_cluster_head_weights.py" \
   --src_dir "${head_dir}" \
   --out_dir "${random_head_dir}" \
   --seed "${RANDOM_SEED}"
 
 echo "Running weighted DPS with random heads..."
-mkdir -p "${ROOT}/dps/outputs/hparam/ablation/random_heads"
-python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+mkdir -p "$(pwd)/outputs/hparam/ablation/random_heads"
+python "$(pwd)/scripts/run_weighted_dps.py" \
   --task "${TASK_DECODER}" \
   --model_path "${MODEL_PATH}" \
   --model_name "${MODEL_NAME}" \
@@ -130,18 +130,18 @@ python "${ROOT}/dps/scripts/run_weighted_dps.py" \
   --embeddings_file "${emb_file}" \
   --routing soft \
   --temperature 1.0 \
-  --run_dir "${ROOT}/dps/outputs/hparam/ablation/random_heads"
+  --run_dir "$(pwd)/outputs/hparam/ablation/random_heads"
 
 echo "Creating random head masks (true masking)..."
-python "${ROOT}/preference_head/random_mask_cluster_head_weights.py" \
+python "preference_head/random_mask_cluster_head_weights.py" \
   --src_dir "${head_dir}" \
   --out_dir "${random_mask_dir}" \
   --seed "${RANDOM_SEED}" \
   --top_percent "${TOP_PERCENT}"
 
 echo "Running weighted DPS with random head masks..."
-mkdir -p "${ROOT}/dps/outputs/hparam/ablation/random_mask"
-python "${ROOT}/dps/scripts/run_weighted_dps.py" \
+mkdir -p "$(pwd)/outputs/hparam/ablation/random_mask"
+python "$(pwd)/scripts/run_weighted_dps.py" \
   --task "${TASK_DECODER}" \
   --model_path "${MODEL_PATH}" \
   --model_name "${MODEL_NAME}" \
@@ -151,4 +151,4 @@ python "${ROOT}/dps/scripts/run_weighted_dps.py" \
   --embeddings_file "${emb_file}" \
   --routing soft \
   --temperature 1.0 \
-  --run_dir "${ROOT}/dps/outputs/hparam/ablation/random_mask"
+  --run_dir "$(pwd)/outputs/hparam/ablation/random_mask"

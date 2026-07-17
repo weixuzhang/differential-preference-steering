@@ -8,7 +8,7 @@ source "${ENV_SETUP}"
 
 INDEX="${1:-${ARRAY_ID:-0}}"
 MODEL_PATH="${MODEL_PATH:-meta-llama/Meta-Llama-3-8B-Instruct}"
-BASE_CLUSTER="${BASE_CLUSTER:-${DPS_ROOT}/preference_head/cluster_runs}"
+BASE_CLUSTER="${BASE_CLUSTER:-${DPS_ROOT}/results/preference_head/cluster_runs}"
 BASE_OUT="${BASE_OUT:-${DPS_ROOT}/preference_head/cluster_heads}"
 MANIFEST="${MANIFEST:-${DPS_ROOT}/preference_head/cluster_head_manifest.tsv}"
 SPLIT="${SPLIT:-dev}"

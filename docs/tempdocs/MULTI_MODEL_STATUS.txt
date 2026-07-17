@@ -69,7 +69,7 @@ Option 1: ALL MODELS, ALL TASKS (~2-2.5 days)
   1. cd /scratch/weixuz/preference_head
      sbatch run_detection_multi_model.sh
   
-  2. cd /scratch/weixuz/dps
+  2. cd /scratch/weixuz/dps-dev
      sbatch run_dps_multi_model.sh
   
   3. python evaluate_predictions.py

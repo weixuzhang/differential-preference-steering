@@ -89,7 +89,7 @@ decore/configs/experiment/
 ### **Step 1: Detect Preference Heads** (~5-6 hours for all 10 tasks)
 
 ```bash
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_all_tasks.sh
 ```
 
@@ -108,7 +108,7 @@ tail -f preference_head_detection_all_*.out
 ### **Step 2: Run DPS Experiments** (~6-8 hours for all 10 tasks)
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_all_tasks.sh
 ```
 
@@ -121,7 +121,7 @@ sbatch experiments/run_dps_all_tasks.sh
 ### **Step 3: Evaluate Results**
 
 ```bash
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python evaluate_predictions.py
 cat outputs/evaluation_summary.json
 ```
@@ -133,11 +133,11 @@ cat outputs/evaluation_summary.json
 ### **LaMP-5: Paper Title Generation**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-5 --num_samples 400
 
 # Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_5/dps/llama3_8b_instruct
 
 # Run baseline
@@ -147,55 +147,55 @@ python scripts/main.py experiment=lamp_5/baseline/llama3_8b_instruct
 ### **LaMP-7: Tweet Paraphrasing**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LaMP-7 --num_samples 400
 
 # Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=lamp_7/dps/llama3_8b_instruct
 ```
 
 ### **LongLaMP-1: Email Generation**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LongLaMP-1 --num_samples 400
 
 # Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=longlamp_1/dps/llama3_8b_instruct
 ```
 
 ### **LongLaMP-2: Abstract Generation**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LongLaMP-2 --num_samples 400
 
 # Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=longlamp_2/dps/llama3_8b_instruct
 ```
 
 ### **LongLaMP-3: Topic Writing**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LongLaMP-3 --num_samples 400
 
 # Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=longlamp_3/dps/llama3_8b_instruct
 ```
 
 ### **LongLaMP-4: Product Review**
 ```bash
 # Detect heads
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 python preference_head_detection.py --task LongLaMP-4 --num_samples 400
 
 # Run DPS
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 python scripts/main.py experiment=longlamp_4/dps/llama3_8b_instruct
 ```
 
@@ -374,11 +374,11 @@ LongLaMP-1,2,3,4: ~2-4 hours (longer generation)
 ### **Quick Start**
 ```bash
 # Detect all heads (one command!)
-cd /scratch/weixuz/dps/preference_head
+cd /scratch/weixuz/dps-dev-dev/preference_head
 sbatch run_detection_all_tasks.sh
 
 # Run all experiments (one command!)
-cd /scratch/weixuz/dps
+cd /scratch/weixuz/dps-dev
 sbatch experiments/run_dps_all_tasks.sh
 
 # View results
@@ -404,7 +404,7 @@ You now have **the most comprehensive DPS evaluation** possible:
 **Ready to run the full pipeline?**
 
 ```bash
-cd /scratch/weixuz/dps/preference_head && sbatch run_detection_all_tasks.sh
+cd /scratch/weixuz/dps-dev-dev/preference_head && sbatch run_detection_all_tasks.sh
 ```
 
 **Good luck! 🎓**

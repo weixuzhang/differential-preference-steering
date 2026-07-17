@@ -37,4 +37,4 @@ echo "Model: ${MODEL_PATH}"
 echo "Output root: ${BASE_OUT}"
 echo "========================================="
 
-bash "${ROOT}/preference_head/run_detect_cluster_heads.sh" "${SLURM_ARRAY_TASK_ID}"
+bash "preference_head/run_detect_cluster_heads.sh" "${SLURM_ARRAY_TASK_ID}"

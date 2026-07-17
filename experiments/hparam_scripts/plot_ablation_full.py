@@ -47,13 +47,13 @@ def _load_preds(path: Path):
 def main() -> None:
     parser = argparse.ArgumentParser(description="Plot ablation results")
     parser.add_argument("--true_pred", default=None)
-    parser.add_argument("--random_heads_pred", default="/scratch/weixuz/dps/outputs/hparam/ablation_full/random_heads/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
-    parser.add_argument("--random_mask_pred", default="/scratch/weixuz/dps/outputs/hparam/ablation_full/random_mask/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
-    parser.add_argument("--true_heads_dir", default="/scratch/weixuz/dps/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct")
-    parser.add_argument("--random_heads_dir", default="/scratch/weixuz/dps/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct_random")
-    parser.add_argument("--random_mask_dir", default="/scratch/weixuz/dps/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct_random_mask")
+    parser.add_argument("--random_heads_pred", default="outputs/hparam/ablation_full/random_heads/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
+    parser.add_argument("--random_mask_pred", default="outputs/hparam/ablation_full/random_mask/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
+    parser.add_argument("--true_heads_dir", default="results/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct")
+    parser.add_argument("--random_heads_dir", default="results/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct_random")
+    parser.add_argument("--random_mask_dir", default="results/preference_head/cluster_heads/lamp1_k25_llama3-8b-instruct_random_mask")
     parser.add_argument("--bootstrap", type=int, default=300)
-    parser.add_argument("--out_dir", default="/scratch/weixuz/dps/outputs/hparam/figures/ablation")
+    parser.add_argument("--out_dir", default="outputs/hparam/figures/ablation")
     args = parser.parse_args()
 
     out_dir = Path(args.out_dir)
@@ -62,7 +62,7 @@ def main() -> None:
     if args.true_pred:
         true_pred = Path(args.true_pred)
     else:
-        true_pred = _find_latest_true_pred(Path("/scratch/weixuz/dps/outputs"))
+        true_pred = _find_latest_true_pred(Path("outputs"))
     if not true_pred or not true_pred.exists():
         raise FileNotFoundError("Could not find true-heads prediction file")
 

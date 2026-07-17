@@ -12,7 +12,7 @@
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Cache directories (same as decore)
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache=".cache/huggingface"
 mkdir -p ${hf_cache}
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
@@ -20,7 +20,7 @@ export HF_OFFLINE=true
 
 MODEL_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
 TOP_PERCENT=0.04
-BASE_DIR="/scratch/weixuz/preference_head/preference_scores_k"
+BASE_DIR="results/preference_head/preference_scores_k"
 
 ks=(1 2 5 10 25 50 100 200 2500)
 tasks=(LaMP-1 LaMP-3)

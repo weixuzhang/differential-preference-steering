@@ -45,7 +45,7 @@ This document explains the directory structure and path configuration used in th
 
 ### 1. **HuggingFace Cache**
 
-**Path:** `/scratch/weixuz/dps/.cache/huggingface`
+**Path:** `/scratch/weixuz/dps-dev-dev/.cache/huggingface`
 
 **Why this path?**
 - Shared with DeCoRe to avoid duplicating large model files
@@ -54,8 +54,8 @@ This document explains the directory structure and path configuration used in th
 
 **Environment Variables:**
 ```bash
-export TRANSFORMERS_CACHE="/scratch/weixuz/dps/.cache/huggingface"
-export HF_HOME="/scratch/weixuz/dps/.cache/huggingface"
+export TRANSFORMERS_CACHE="/scratch/weixuz/dps-dev-dev/.cache/huggingface"
+export HF_HOME="/scratch/weixuz/dps-dev-dev/.cache/huggingface"
 export HF_OFFLINE=true  # Use cached models only
 ```
 
@@ -68,13 +68,13 @@ export HF_OFFLINE=true  # Use cached models only
 - Dataset already downloaded and processed here
 - Code temporarily changes directory to load data:
   ```python
-  os.chdir('/scratch/weixuz/dps')
+  os.chdir('/scratch/weixuz/dps-dev')
   dataset = load_lamp_dataset('LaMP-1', 'dev')
   ```
 
 ### 3. **Output Directory**
 
-**Path:** `/scratch/weixuz/preference_head/preference_scores/`
+**Path:** `results/preference_head/preference_scores/`
 
 **Why this path?**
 - Keeps results organized within preference_head project
@@ -106,12 +106,12 @@ python preference_head_detection.py --model_path ...
 
 ```bash
 # Cache (shared with decore)
-hf_cache="/scratch/weixuz/dps/.cache/huggingface"
+hf_cache="/scratch/weixuz/dps-dev-dev/.cache/huggingface"
 export TRANSFORMERS_CACHE="${hf_cache}"
 export HF_HOME="${hf_cache}"
 
 # Output directory (absolute path)
-SAVE_DIR="/scratch/weixuz/preference_head/preference_scores"
+SAVE_DIR="results/preference_head/preference_scores"
 
 # Model (uses cached version)
 MODEL_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
@@ -122,7 +122,7 @@ MODEL_PATH="meta-llama/Meta-Llama-3-8B-Instruct"
 ```python
 config = PreferenceHeadConfig(
     model_path="meta-llama/Meta-Llama-3-8B-Instruct",
-    save_dir="/scratch/weixuz/preference_head/test_preference_scores",
+    save_dir="results/preference_head/test_preference_scores",
     ...
 )
 ```
@@ -131,7 +131,7 @@ config = PreferenceHeadConfig(
 
 ```python
 # Dataset loading (handles path internally)
-os.chdir('/scratch/weixuz/dps')
+os.chdir('/scratch/weixuz/dps-dev')
 dataset = load_lamp_dataset(task, split='dev')
 os.chdir(original_cwd)
 
@@ -174,10 +174,10 @@ self.model = AutoModelForCausalLM.from_pretrained(
 
 ```bash
 # Verify model is cached
-ls /scratch/weixuz/dps/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
+ls /scratch/weixuz/dps-dev-dev/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
 
 # Check cache size
-du -sh /scratch/weixuz/dps/.cache/huggingface/
+du -sh /scratch/weixuz/dps-dev-dev/.cache/huggingface/
 ```
 
 ### Check LaMP Dataset
@@ -194,10 +194,10 @@ ls -lh /scratch/weixuz/lamp_data/LaMP-1/*.json
 
 ```bash
 # Create if doesn't exist
-mkdir -p /scratch/weixuz/preference_head/preference_scores
+mkdir -p results/preference_head/preference_scores
 
 # Check permissions
-ls -ld /scratch/weixuz/preference_head/preference_scores
+ls -ld results/preference_head/preference_scores
 ```
 
 ---
@@ -219,8 +219,8 @@ All paths and environment variables are automatically configured.
 source /scratch/weixuz/envs/decore/bin/activate
 
 # Set cache
-export TRANSFORMERS_CACHE="/scratch/weixuz/dps/.cache/huggingface"
-export HF_HOME="/scratch/weixuz/dps/.cache/huggingface"
+export TRANSFORMERS_CACHE="/scratch/weixuz/dps-dev-dev/.cache/huggingface"
+export HF_HOME="/scratch/weixuz/dps-dev-dev/.cache/huggingface"
 export HF_OFFLINE=true
 
 # Run detection
@@ -228,7 +228,7 @@ cd /scratch/weixuz/preference_head
 python preference_head_detection.py \
   --model_path meta-llama/Meta-Llama-3-8B-Instruct \
   --task LaMP-1 \
-  --save_dir /scratch/weixuz/preference_head/preference_scores
+  --save_dir results/preference_head/preference_scores
 ```
 
 ---
@@ -245,11 +245,11 @@ OSError: Can't load model 'meta-llama/Meta-Llama-3-8B-Instruct'
 **Solution:**
 ```bash
 # Check if model is cached
-ls /scratch/weixuz/dps/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
+ls /scratch/weixuz/dps-dev-dev/.cache/huggingface/models--meta-llama--Meta-Llama-3-8B-Instruct/
 
 # If not, ensure cache path is correct
 echo $TRANSFORMERS_CACHE
-# Should output: /scratch/weixuz/dps/.cache/huggingface
+# Should output: /scratch/weixuz/dps-dev-dev/.cache/huggingface
 ```
 
 ### Issue: Dataset Not Found
@@ -272,14 +272,14 @@ ls /scratch/weixuz/lamp_data/LaMP-1/
 
 **Error:**
 ```
-Permission denied: /scratch/weixuz/preference_head/preference_scores/
+Permission denied: results/preference_head/preference_scores/
 ```
 
 **Solution:**
 ```bash
 # Create directory with correct permissions
-mkdir -p /scratch/weixuz/preference_head/preference_scores
-chmod 755 /scratch/weixuz/preference_head/preference_scores
+mkdir -p results/preference_head/preference_scores
+chmod 755 results/preference_head/preference_scores
 ```
 
 ---
@@ -288,12 +288,12 @@ chmod 755 /scratch/weixuz/preference_head/preference_scores
 
 | Resource | Path | Type | Size |
 |----------|------|------|------|
-| Model Cache | `/scratch/weixuz/dps/.cache/huggingface/` | Shared | ~16GB |
+| Model Cache | `/scratch/weixuz/dps-dev-dev/.cache/huggingface/` | Shared | ~16GB |
 | LaMP Dataset | `/scratch/weixuz/lamp_data/` | Shared | ~2GB |
 | Detection Scripts | `/scratch/weixuz/preference_head/` | Local | ~100KB |
-| Output Results | `/scratch/weixuz/preference_head/preference_scores/` | Local | ~10MB |
-| Test Results | `/scratch/weixuz/preference_head/test_preference_scores/` | Local | ~1MB |
-| Visualizations | `/scratch/weixuz/preference_head/visualizations/` | Local | ~5MB |
+| Output Results | `results/preference_head/preference_scores/` | Local | ~10MB |
+| Test Results | `results/preference_head/test_preference_scores/` | Local | ~1MB |
+| Visualizations | `results/preference_head/visualizations/` | Local | ~5MB |
 
 ---
 
@@ -312,7 +312,7 @@ chmod 755 /scratch/weixuz/preference_head/preference_scores
 ```bash
 # Environment
 DECORE_ENV="/scratch/weixuz/envs/decore"
-HF_CACHE="/scratch/weixuz/dps/.cache/huggingface"
+HF_CACHE="/scratch/weixuz/dps-dev-dev/.cache/huggingface"
 
 # Data
 LAMP_DATA="/scratch/weixuz/lamp_data"

@@ -34,11 +34,11 @@ def _load_preds(path: Path):
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Plot gamma sweep results")
-    parser.add_argument("--adaptive_pred", default="/scratch/weixuz/dps/outputs/hparam/gamma_full/adaptive/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
-    parser.add_argument("--fixed_pred", default="/scratch/weixuz/dps/outputs/hparam/gamma_full/fixed_alpha_0.5/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
+    parser.add_argument("--adaptive_pred", default="outputs/hparam/gamma_full/adaptive/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
+    parser.add_argument("--fixed_pred", default="outputs/hparam/gamma_full/fixed_alpha_0.5/pred_LAMP_1_LLaMA3-8b-Instruct__DPSWeightedSoft.json")
     parser.add_argument("--fixed_alpha", type=float, default=0.5)
     parser.add_argument("--bootstrap", type=int, default=300)
-    parser.add_argument("--out_dir", default="/scratch/weixuz/dps/outputs/hparam/figures/gamma")
+    parser.add_argument("--out_dir", default="outputs/hparam/figures/gamma")
     args = parser.parse_args()
 
     out_dir = Path(args.out_dir)
