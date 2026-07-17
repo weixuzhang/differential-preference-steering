@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT="${DPS_ROOT:-${SLURM_SUBMIT_DIR:?Set DPS_ROOT or submit from the repo root}}"
 # shellcheck disable=SC1090
 source "${ROOT}/scripts/env_setup.sh"
 cd "${ROOT}"
